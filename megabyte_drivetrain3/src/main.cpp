@@ -5,7 +5,7 @@
 /* Created: 9/7/2024, 3:05:00 PM                                                  */
 /*This is the code for the driving                                                 */
 /* Description: V5 project                                                        */
-/* Coders: Sehaj (temporary), Daniel, and Anderson                               */
+/* Coders: Sehaj, Daniel, and Anderson                                           */
 /* Current Code Owners: Sehaj and Daniel                                        */
 /* This is the third version of this code.                                     */
 /*----------------------------------------------------------------------------*/
@@ -24,17 +24,12 @@ using namespace vex;
 // A global instance of vex::brain used for printing to the V5 brain screen
 controller Controller;
 //Note: We noticed some ports were not working on our brain, so some of these are out of order.
-//Back motors
+//Left motors
 motor leftMotorBack(PORT1, ratio6_1, false);
-motor rightMotorBack(PORT3, ratio6_1, true);
-
-//Front Motors
 motor leftMotorFront(PORT9, ratio6_1, false);
-motor rightMotorFront(PORT5, ratio6_1, true);
-
-//Middle motors
-motor leftMotorMiddle(PORT6, ratio6_1, false);
-motor rightMotorMiddle(PORT7, ratio6_1, true);
+//Right Motors
+motor rightMotorBack(PORT3, ratio6_1, true);
+motor rightMotorfront(PORT6, ratio6_1, true);
 
 // define your global instances of motors and other devices here;
 
@@ -67,11 +62,9 @@ if (abs(turnPos)< deadzone)
 //Left Motors
 leftMotorFront.spin(forward, forwardPos + turnPos, percent);
 leftMotorBack.spin(forward, forwardPos + turnPos, percent);
-leftMotorMiddle.spin(forward, forwardPos + turnPos, percent);
 //Right Motors
 rightMotorBack.spin(forward, forwardPos - turnPos, percent);
-rightMotorFront.spin(forward, forwardPos - turnPos, percent);
-rightMotorMiddle.spin(forward, forwardPos - turnPos, percent);
+rightMotorfront.spin(forward, forwardPos - turnPos, percent);
 //Code for Arcade Drive
 // Allow other tasks to run
 
