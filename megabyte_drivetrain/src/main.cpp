@@ -28,7 +28,7 @@ controller Controller;
 motor leftMotorBack(PORT1, ratio6_1, false);
 motor rightMotorBack(PORT3, ratio6_1, true);
 //Front Motors
-motor leftMotorFront(PORT9, ratio6_1, false);
+motor leftMotorFront(PORT21, ratio6_1, false);
 motor rightMotorFront(PORT6, ratio6_1, true);
 //Middle motors
 motor leftMotorMiddle(PORT7, ratio6_1, false);
