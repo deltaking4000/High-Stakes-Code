@@ -6,6 +6,7 @@ extern brain Brain;
 extern motor_group IntakeMotorGroup;
 extern drivetrain Drivetrain;
 extern controller Controller1;
+extern motor Clamp;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

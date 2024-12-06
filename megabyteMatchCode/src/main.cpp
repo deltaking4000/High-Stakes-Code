@@ -13,6 +13,7 @@
 // IntakeMotorGroup     motor_group   5, 11           
 // Drivetrain           drivetrain    9, 1, 6, 3      
 // Controller1          controller                    
+// Clamp                motor         12              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"

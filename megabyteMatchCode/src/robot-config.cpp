@@ -19,11 +19,13 @@ motor rightMotorB = motor(PORT3, ratio18_1, false);
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 319.19, 294.89399999999995, 234.95, mm, 1.5);
 controller Controller1 = controller(primary);
+motor Clamp = motor(PORT12, ratio18_1, false);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;
 // define variables used for controlling motors based on controller inputs
+bool Controller1RightShoulderControlMotorsStopped = true;
 bool Controller1UpDownButtonsControlMotorsStopped = true;
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
@@ -76,6 +78,18 @@ int rc_auto_loop_function_Controller1() {
       if (DrivetrainRNeedsToBeStopped_Controller1) {
         RightDriveSmart.setVelocity(drivetrainRightSideSpeed, percent);
         RightDriveSmart.spin(forward);
+      }
+      // check the ButtonR1/ButtonR2 status to control Clamp
+      if (Controller1.ButtonR1.pressing()) {
+        Clamp.spin(forward);
+        Controller1RightShoulderControlMotorsStopped = false;
+      } else if (Controller1.ButtonR2.pressing()) {
+        Clamp.spin(reverse);
+        Controller1RightShoulderControlMotorsStopped = false;
+      } else if (!Controller1RightShoulderControlMotorsStopped) {
+        Clamp.stop();
+        // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
+        Controller1RightShoulderControlMotorsStopped = true;
       }
       // check the ButtonUp/ButtonDown status to control IntakeMotorGroup
       if (Controller1.ButtonUp.pressing()) {
