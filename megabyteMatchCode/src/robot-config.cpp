@@ -26,7 +26,6 @@ motor Clamp = motor(PORT12, ratio18_1, false);
 bool RemoteControlCodeEnabled = true;
 // define variables used for controlling motors based on controller inputs
 bool Controller1RightShoulderControlMotorsStopped = true;
-bool Controller1UpDownButtonsControlMotorsStopped = true;
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 
@@ -90,18 +89,6 @@ int rc_auto_loop_function_Controller1() {
         Clamp.stop();
         // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
         Controller1RightShoulderControlMotorsStopped = true;
-      }
-      // check the ButtonUp/ButtonDown status to control IntakeMotorGroup
-      if (Controller1.ButtonUp.pressing()) {
-        IntakeMotorGroup.spin(forward);
-        Controller1UpDownButtonsControlMotorsStopped = false;
-      } else if (Controller1.ButtonDown.pressing()) {
-        IntakeMotorGroup.spin(reverse);
-        Controller1UpDownButtonsControlMotorsStopped = false;
-      } else if (!Controller1UpDownButtonsControlMotorsStopped) {
-        IntakeMotorGroup.stop();
-        // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
-        Controller1UpDownButtonsControlMotorsStopped = true;
       }
     }
     // wait before repeating the process

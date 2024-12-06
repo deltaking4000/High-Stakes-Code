@@ -1,3 +1,11 @@
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// IntakeMotorGroup     motor_group   5, 11           
+// Drivetrain           drivetrain    9, 1, 6, 3      
+// Controller1          controller                    
+// Clamp                motor         12              
+// ---- END VEXCODE CONFIGURED DEVICES ----
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
@@ -69,6 +77,18 @@ void autonomous(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
+void buttonUpPressed() {
+    IntakeMotorGroup.spin(forward);
+    Brain.Screen.print("intake started...");
+    Brain.Screen.newLine();
+}
+
+void buttonDownPressed() {
+    IntakeMotorGroup.stop();
+    Brain.Screen.print("intake stopped...");
+    Brain.Screen.newLine();
+}
+
 void usercontrol(void) {
   // User control code here, inside the loop
       // Sets velocity for the intake and the drivetrain
@@ -77,7 +97,9 @@ void usercontrol(void) {
     Clamp.setVelocity(50,percent);
     Clamp.setMaxTorque(100,percent);
     Clamp.setStopping(hold);
-  
+    Controller1.ButtonUp.pressed(buttonUpPressed);
+    Controller1.ButtonDown.pressed(buttonDownPressed);
+
   while (1) {
     // This is the main execution loop for the user control program.
   
