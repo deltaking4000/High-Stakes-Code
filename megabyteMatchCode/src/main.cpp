@@ -74,6 +74,9 @@ void usercontrol(void) {
       // Sets velocity for the intake and the drivetrain
     IntakeMotorGroup.setVelocity(100, percent);
     Drivetrain.setDriveVelocity(100, percent);
+    Clamp.setVelocity(50,percent);
+    Clamp.setMaxTorque(100,percent);
+    Clamp.setStopping(hold);
   
   while (1) {
     // This is the main execution loop for the user control program.
