@@ -10,12 +10,12 @@ brain  Brain;
 // VEXcode device constructors
 //Left motors
 motor LeftMotorFront = motor(PORT1, ratio6_1, true);
-motor LeftMotorBackBottom = motor(PORT11, ratio18_1, true);
-motor LeftMotorBackTop = motor(PORT13, ratio18_1, false);
+motor LeftMotorBackBottom = motor(PORT11, ratio6_1, true);
+motor LeftMotorBackTop = motor(PORT13, ratio6_1, false);
 //Right Motors
 motor RightMotorFront = motor(PORT10, ratio6_1, false);
-motor RightMotorBackBottom = motor(PORT20, ratio18_1, false);
-motor RightMotorBackTop = motor(PORT18, ratio18_1, true);
+motor RightMotorBackBottom = motor(PORT20, ratio6_1, false);
+motor RightMotorBackTop = motor(PORT18, ratio6_1, true);
 
 //Motor groups for drivetrain
 motor_group LeftDriveSmart = motor_group(LeftMotorFront, LeftMotorBackBottom, LeftMotorBackTop);
@@ -25,7 +25,7 @@ motor_group RightDriveSmart = motor_group(RightMotorFront, RightMotorBackBottom,
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 299.24, 295, 235, mm, 1);
 controller Controller1 = controller(primary);
 
-//Intake proggraming
+//Intake programming
 motor IntakeMotorA = motor(PORT6, ratio18_1, false);
 motor IntakeMotorB = motor(PORT7, ratio18_1, false);
 motor_group Intake = motor_group(IntakeMotorA, IntakeMotorB);
