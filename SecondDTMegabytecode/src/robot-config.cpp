@@ -8,6 +8,7 @@ using code = vision::code;
 brain  Brain;
 
 // VEXcode device constructors
+
 //Left motors
 motor LeftMotorFront = motor(PORT1, ratio6_1, true);
 motor LeftMotorBackBottom = motor(PORT11, ratio6_1, true);
@@ -29,6 +30,9 @@ controller Controller1 = controller(primary);
 motor IntakeMotorA = motor(PORT6, ratio18_1, false);
 motor IntakeMotorB = motor(PORT7, ratio18_1, false);
 motor_group Intake = motor_group(IntakeMotorA, IntakeMotorB);
+
+// Pneumatics
+digital_out Clamp = digital_out(Brain.ThreeWirePort.H);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable

@@ -43,12 +43,6 @@ competition Competition;
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
-const int wheelTravel = 260;
-const int trackWidth = 292;
-const int wheelBase = 235;
-motor_group driveLeft(LeftMotorFront, LeftMotorBackBottom,LeftMotorBackTop);
-motor_group driveRight(RightMotorFront, RightMotorBackBottom, RightMotorBackTop);
-drivetrain myDrivetrain(driveLeft, driveRight, wheelTravel, trackWidth, wheelBase);
 
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
@@ -64,11 +58,13 @@ drivetrain myDrivetrain(driveLeft, driveRight, wheelTravel, trackWidth, wheelBas
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-void autonomous(void) {
-  // ..........................................................................
-  // Insert autonomous user code here.
-  // ..........................................................................
+
+ void autonomous(void) {
+    // Drives to the ladder
+  Drivetrain.setDriveVelocity(100, percent);
+  Drivetrain.driveFor(46, inches);
 }
+
 
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
@@ -79,25 +75,41 @@ void autonomous(void) {
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
+void buttonUpPressed() {
+    Intake.spin(forward);
+    Brain.Screen.print("intake started...");
+    Brain.Screen.newLine();
+}
+
+void buttonDownPressed() {
+    Intake.stop();
+    Brain.Screen.print("intake stopped...");
+    Brain.Screen.newLine();
+}
+
+
+
+void buttonL1Pressed() {
+  Clamp.set(true);
+
+}
+
+void buttonL2Pressed() {
+  Clamp.set(false);
+}
+
+
+
 
 void usercontrol(void) {
   // User control code here, inside the loop
-  while (1) {
-    // This is the main execution loop for the user control program.
-    // Each time through the loop your program should update motor + servo
-    // values based on feedback from the joysticks.
-
-    // ........................................................................
-    // Insert user code here. This is where you use the joystick values to
-    // update your motors, etc.
-    // ........................................................................
-
-    wait(20, msec); // Sleep the task for a short amount of time to
-                    // prevent wasted resources.
-  }
+      // Sets velocity for the intake and the drivetrain
+    Intake.setVelocity(100, percent);
+    Drivetrain.setDriveVelocity(100, percent);
+    Controller1.ButtonUp.pressed(buttonUpPressed);
+    Controller1.ButtonDown.pressed(buttonDownPressed);
 }
 
-//
 // Main will set up the competition functions and callbacks.
 //
 int main() {

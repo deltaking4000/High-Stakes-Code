@@ -12,6 +12,7 @@ extern motor RightMotorBackTop;
 extern drivetrain Drivetrain;
 extern controller Controller1;
 extern motor_group Intake;
+extern digital_out Clamp;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
