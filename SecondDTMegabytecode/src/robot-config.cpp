@@ -54,15 +54,6 @@ int rc_auto_loop_function_Controller1() {
       int drivetrainLeftSideSpeed = Controller1.Axis3.position() + Controller1.Axis1.position();
       int drivetrainRightSideSpeed = Controller1.Axis3.position() - Controller1.Axis1.position();
       
-      if (Controller1.ButtonL1.pressing()){
-          Clamp.set(false);
-
-      }
-
-      if (Controller1.ButtonL2.pressing()){
-          Clamp.set(true);
-      }
-
       // check if the value is inside of the deadband range
       if (drivetrainLeftSideSpeed < 5 && drivetrainLeftSideSpeed > -5) {
         // check if the left motor has already been stopped

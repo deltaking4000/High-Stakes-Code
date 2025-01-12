@@ -105,6 +105,8 @@ void usercontrol(void) {
     Drivetrain.setDriveVelocity(100, percent);
     Controller1.ButtonUp.pressed(buttonUpPressed);
     Controller1.ButtonDown.pressed(buttonDownPressed);
+    Controller1.ButtonL1.pressed(buttonL1Pressed);
+    Controller1.ButtonL2.pressed(buttonL2Pressed);
 }
 
 // Main will set up the competition functions and callbacks.
