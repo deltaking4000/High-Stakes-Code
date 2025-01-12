@@ -19,6 +19,7 @@
 // Drivetrain           drivetrain    2, 3, 4, 5      
 // Controller1          controller                    
 // Intake               motor_group   6, 7            
+// Clamp                digital_out   H
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -75,6 +76,7 @@ void pre_auton(void) {
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
+
 void buttonUpPressed() {
     Intake.spin(forward);
     Brain.Screen.print("intake started...");
@@ -87,18 +89,13 @@ void buttonDownPressed() {
     Brain.Screen.newLine();
 }
 
-
-
 void buttonL1Pressed() {
-  Clamp.set(true);
-
-}
-
-void buttonL2Pressed() {
   Clamp.set(false);
 }
 
-
+void buttonL2Pressed() {
+  Clamp.set(true);
+}
 
 
 void usercontrol(void) {
