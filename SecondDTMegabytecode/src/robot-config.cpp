@@ -23,9 +23,9 @@ motor_group LeftDriveSmart = motor_group(LeftMotorFront, LeftMotorBackBottom, Le
 motor_group RightDriveSmart = motor_group(RightMotorFront, RightMotorBackBottom, RightMotorBackTop);
 
 // Drivetrain https://api.vex.com/v5/home/cpp/Drivetrain.html
-double wheelTravel = 320;   // 4" wheel is 320mm wheeltravel
-double trackWidth = 295;    // left wheel to right wheel
-double wheelBase = 235;     // backmost wheel to frontmost wheel
+double wheelTravel = 260;   // 3.25" wheel is 260mm wheeltravel
+double trackWidth = 305;    // left wheel to right wheel
+double wheelBase = 228.6;     // backmost wheel to frontmost wheel
 double externalGearRatio = 36/24; // output teeth over input teeth
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, wheelTravel, trackWidth, wheelBase, mm, externalGearRatio);
 
@@ -44,7 +44,6 @@ digital_out Clamp = digital_out(Brain.ThreeWirePort.H);
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;
 // define variables used for controlling motors based on controller inputs
-bool Controller1RightShoulderControlMotorsStopped = true;
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 
@@ -96,18 +95,6 @@ int rc_auto_loop_function_Controller1() {
       if (DrivetrainRNeedsToBeStopped_Controller1) {
         RightDriveSmart.setVelocity(drivetrainRightSideSpeed, percent);
         RightDriveSmart.spin(forward);
-      }
-      // check the ButtonR1/ButtonR2 status to control Intake
-      if (Controller1.ButtonR1.pressing()) {
-        Intake.spin(forward);
-        Controller1RightShoulderControlMotorsStopped = false;
-      } else if (Controller1.ButtonR2.pressing()) {
-        Intake.spin(reverse);
-        Controller1RightShoulderControlMotorsStopped = false;
-      } else if (!Controller1RightShoulderControlMotorsStopped) {
-        Intake.stop();
-        // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
-        Controller1RightShoulderControlMotorsStopped = true;
       }
     }
     // wait before repeating the process

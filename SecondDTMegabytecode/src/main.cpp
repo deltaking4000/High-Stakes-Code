@@ -77,13 +77,13 @@ void pre_auton(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-void buttonUpPressed() {
-    Intake.spin(forward);
+void buttonR1Pressed() {
+    Intake.spin(reverse);
     Brain.Screen.print("intake started...");
     Brain.Screen.newLine();
 }
 
-void buttonDownPressed() {
+void buttonR2Pressed() {
     Intake.stop();
     Brain.Screen.print("intake stopped...");
     Brain.Screen.newLine();
@@ -91,10 +91,14 @@ void buttonDownPressed() {
 
 void buttonL1Pressed() {
   Clamp.set(false);
+  Brain.Screen.print("Clamp false...");
+  Brain.Screen.newLine();
 }
 
 void buttonL2Pressed() {
   Clamp.set(true);
+  Brain.Screen.print("Clamp true...");
+  Brain.Screen.newLine();
 }
 
 
@@ -103,8 +107,8 @@ void usercontrol(void) {
       // Sets velocity for the intake and the drivetrain
     Intake.setVelocity(100, percent);
     Drivetrain.setDriveVelocity(100, percent);
-    Controller1.ButtonUp.pressed(buttonUpPressed);
-    Controller1.ButtonDown.pressed(buttonDownPressed);
+    Controller1.ButtonR1.pressed(buttonR1Pressed);
+    Controller1.ButtonR2.pressed(buttonR2Pressed);
     Controller1.ButtonL1.pressed(buttonL1Pressed);
     Controller1.ButtonL2.pressed(buttonL2Pressed);
 }
