@@ -48,6 +48,15 @@ void pre_auton(void) {
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
 }
+void LiftClamp(){
+  Clamp.set(true);
+   Brain.Screen.print("The clamp has been lifted");
+}
+
+void DropClamp(){
+  Clamp.set(false);
+   Brain.Screen.print("The clamp has been placed down");
+}
 
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
@@ -59,11 +68,23 @@ void pre_auton(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-
  void autonomous(void) {
-    // Drives to the ladder
-  Drivetrain.setDriveVelocity(100, percent);
-  Drivetrain.driveFor(46, inches);
+  Intake.setVelocity(100, percent);
+
+  // Before match - Place clamp up,
+  LiftClamp();
+
+  // 1. Drive backwards into the stake, crossing the starting line
+  Drivetrain.setDriveVelocity(20, percent);
+  Drivetrain.driveFor(reverse, 24, inches);
+
+  // 2. Put the clamp onto the goal
+  DropClamp();
+
+  // 3. Put the preloaded ring on the stake
+  Intake.spin(reverse);
+  wait(2, seconds);
+  Intake.stop();
 }
 
 
