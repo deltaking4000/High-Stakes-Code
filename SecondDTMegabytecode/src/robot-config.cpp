@@ -15,7 +15,7 @@ motor LeftMotorBackBottom = motor(PORT11, ratio6_1, true);
 motor LeftMotorBackTop = motor(PORT13, ratio6_1, false);
 //Right Motors
 motor RightMotorFront = motor(PORT10, ratio6_1, false);
-motor RightMotorBackBottom = motor(PORT20, ratio6_1, false);
+motor RightMotorBackBottom = motor(PORT16, ratio6_1, false);
 motor RightMotorBackTop = motor(PORT18, ratio6_1, true);
 
 //Motor groups for drivetrain
