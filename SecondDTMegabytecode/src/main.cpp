@@ -14,7 +14,7 @@
 // LeftMotorBackBottom  motor         11              
 // LeftMotorBackTop     motor         13              
 // RightMotorFront      motor         10              
-// RightMotorBackBottom motor         20              
+// RightMotorBackBottom motor         16              
 // RightMotorBackTop    motor         18              
 // Drivetrain           drivetrain    2, 3, 4, 5      
 // Controller1          controller                    
@@ -106,16 +106,33 @@ void DropClamp(){
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
+
 void buttonR1Pressed() {
-    Intake.spin(reverse);
-    Brain.Screen.print("intake started...");
-    Brain.Screen.newLine();
+    static bool bR1ButtonState = false;
+    if( !bR1ButtonState ) {
+      bR1ButtonState = true;
+      Intake.spin(reverse);
+      Brain.Screen.print("intake started...");
+      Brain.Screen.newLine();
+    }
+    else {
+      bR1ButtonState = false;
+      Intake.stop();
+  }
 }
 
 void buttonR2Pressed() {
-    Intake.stop();
-    Brain.Screen.print("intake stopped...");
+  static bool bR2ButtonState = false;
+  if( !bR2ButtonState ) {
+    bR2ButtonState = true;
+    Intake.spin(forward);
+    Brain.Screen.print("intake reversed...");
     Brain.Screen.newLine();
+  }
+  else {
+    bR2ButtonState = false;
+    Intake.stop();
+  }
 }
 
 void buttonL1Pressed() {
@@ -136,10 +153,6 @@ void usercontrol(void) {
       // Sets velocity for the intake and the drivetrain
     Intake.setVelocity(100, percent);
     Drivetrain.setDriveVelocity(100, percent);
-    Controller1.ButtonR1.pressed(buttonR1Pressed);
-    Controller1.ButtonR2.pressed(buttonR2Pressed);
-    Controller1.ButtonL1.pressed(buttonL1Pressed);
-    Controller1.ButtonL2.pressed(buttonL2Pressed);
 }
 
 // Main will set up the competition functions and callbacks.
@@ -148,6 +161,10 @@ int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
+  Controller1.ButtonR1.pressed(buttonR1Pressed);
+  Controller1.ButtonR2.pressed(buttonR2Pressed);
+  Controller1.ButtonL1.pressed(buttonL1Pressed);
+  Controller1.ButtonL2.pressed(buttonL2Pressed);
 
   // Run the pre-autonomous function.
   pre_auton();
