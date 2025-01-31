@@ -71,20 +71,28 @@ void DropClamp(){
  void autonomous(void) {
   Intake.setVelocity(100, percent);
 
-  // Before match - Place clamp up,
-  LiftClamp();
+  //START
 
-  // 1. Drive backwards into the stake, crossing the starting line
+  // 1. Drive towards the alliance wall stake
   Drivetrain.setDriveVelocity(20, percent);
-  Drivetrain.driveFor(reverse, 24, inches);
-
-  // 2. Put the clamp onto the goal
-  DropClamp();
-
-  // 3. Put the preloaded ring on the stake
+  Drivetrain.setTurnVelocity(100, percent);
+  Intake.setVelocity(100, percent);
+  Drivetrain.driveFor(reverse, 9, inches);
+  
+  // 2. Put the preloaded ring on the stake
   Intake.spin(reverse);
   wait(2, seconds);
   Intake.stop();
+
+  // 3. Turn to face ladder
+  Drivetrain.driveFor(forward, 6, inches);
+  Drivetrain.setTimeout(2, seconds);
+  Drivetrain.turnFor(left, 60, degrees);
+
+  // 4. Drive to ladder
+  Drivetrain.driveFor(forward, 34, inches);
+
+  //END
 }
 
 
