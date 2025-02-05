@@ -86,14 +86,10 @@ void DropClamp(){
   Intake.stop();
 
   // 3. Turn to face mobile goal
-  Brain.Screen.print(Inertial.heading());
-  Brain.Screen.newLine();
   LiftClamp();
   Drivetrain.driveFor(forward, 15, inches);
   //Drivetrain.setTimeout(2, seconds);
   Drivetrain.turnToHeading( 270, degrees);
-  Brain.Screen.print(Inertial.heading());
-  Brain.Screen.newLine();
   
   // 4. Drive into mobile goal
   Drivetrain.driveFor(reverse, 18, inches);
@@ -101,11 +97,8 @@ void DropClamp(){
   wait(0.5, seconds);
 
   // 5. Turn to pick up rings
-  Brain.Screen.print(Inertial.heading());
-  Brain.Screen.newLine();
+
   Drivetrain.turnToHeading(90, degrees);
-  Brain.Screen.print(Inertial.heading());
-  Brain.Screen.newLine();
   Intake.spin(reverse);
   Drivetrain.setTimeout(10, seconds);
   Drivetrain.driveFor(forward, 60, inches);
