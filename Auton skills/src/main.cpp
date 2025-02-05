@@ -75,14 +75,16 @@ void DropClamp(){
   //START
 
   // 1. Drive towards the alliance wall stake
-  Drivetrain.setDriveVelocity(20, percent);
-  Drivetrain.setTurnVelocity(30, percent);
+  Drivetrain.setDriveVelocity(10, percent);
+  Drivetrain.setTurnVelocity(10, percent);
   Intake.setVelocity(100, percent);
  // Drivetrain.driveFor(reverse, 9, inches);
   
   // 2. Put the preloaded ring on the stake
   Intake.spin(reverse);
   wait(2, seconds);
+  Intake.spin(forward);
+  wait(1, seconds);
   Intake.stop();
 
   // 3. Turn to face mobile goal
@@ -92,7 +94,8 @@ void DropClamp(){
   Drivetrain.turnToHeading( 270, degrees);
   
   // 4. Drive into mobile goal
-  Drivetrain.driveFor(reverse, 18, inches);
+  Drivetrain.driveFor(reverse, 19, inches);
+  wait(0.5,seconds);
   DropClamp();
   wait(0.5, seconds);
 
@@ -106,7 +109,7 @@ void DropClamp(){
 
   // 6. Turn to go into the positive corner
   Brain.Screen.print("The robot is turning to go into the positive corner");
-  Drivetrain.turnToHeading(180, degrees);
+  Drivetrain.turnToHeading(355, degrees);
   Drivetrain.setTimeout(5, seconds);
   Drivetrain.driveFor(reverse, 50, inches);
   Intake.stop();
