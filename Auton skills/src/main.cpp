@@ -47,6 +47,8 @@ void pre_auton(void) {
 
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
+  // Start calibration with the calibration time set to 3 seconds.
+  Inertial.calibrate(3);
 }
 void LiftClamp(){
   Clamp.set(true);
@@ -69,13 +71,12 @@ void DropClamp(){
 /*---------------------------------------------------------------------------*/
 
  void autonomous(void) {
-  Intake.setVelocity(100, percent);
 
   //START
 
   // 1. Drive towards the alliance wall stake
   Drivetrain.setDriveVelocity(20, percent);
-  Drivetrain.setTurnVelocity(20, percent);
+  Drivetrain.setTurnVelocity(30, percent);
   Intake.setVelocity(100, percent);
  // Drivetrain.driveFor(reverse, 9, inches);
   
@@ -85,25 +86,35 @@ void DropClamp(){
   Intake.stop();
 
   // 3. Turn to face mobile goal
+  Brain.Screen.print(Inertial.heading());
+  Brain.Screen.newLine();
   LiftClamp();
   Drivetrain.driveFor(forward, 15, inches);
-  Drivetrain.setTimeout(2, seconds);
-  Drivetrain.turnFor(left, 90, degrees);
+  //Drivetrain.setTimeout(2, seconds);
+  Drivetrain.turnToHeading( 270, degrees);
+  Brain.Screen.print(Inertial.heading());
+  Brain.Screen.newLine();
   
-
   // 4. Drive into mobile goal
   Drivetrain.driveFor(reverse, 18, inches);
   DropClamp();
   wait(0.5, seconds);
 
   // 5. Turn to pick up rings
-  Drivetrain.turnFor(left, 195, degrees);
+  Brain.Screen.print(Inertial.heading());
+  Brain.Screen.newLine();
+  Drivetrain.turnToHeading(90, degrees);
+  Brain.Screen.print(Inertial.heading());
+  Brain.Screen.newLine();
   Intake.spin(reverse);
-  Drivetrain.setTimeout(60, seconds);
+  Drivetrain.setTimeout(10, seconds);
   Drivetrain.driveFor(forward, 60, inches);
   wait(2, seconds);
+
   // 6. Turn to go into the positive corner
-  Drivetrain.turnFor(right, 270, degrees);
+  Brain.Screen.print("The robot is turning to go into the positive corner");
+  Drivetrain.turnToHeading(180, degrees);
+  Drivetrain.setTimeout(5, seconds);
   Drivetrain.driveFor(reverse, 50, inches);
   Intake.stop();
   
@@ -182,6 +193,9 @@ int main() {
   Controller1.ButtonR2.pressed(buttonR2Pressed);
   Controller1.ButtonL1.pressed(buttonL1Pressed);
   Controller1.ButtonL2.pressed(buttonL2Pressed);
+  
+
+
 
   // Run the pre-autonomous function.
   pre_auton();

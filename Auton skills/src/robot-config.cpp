@@ -22,12 +22,16 @@ motor RightMotorBackTop = motor(PORT18, ratio6_1, true);
 motor_group LeftDriveSmart = motor_group(LeftMotorFront, LeftMotorBackBottom, LeftMotorBackTop);
 motor_group RightDriveSmart = motor_group(RightMotorFront, RightMotorBackBottom, RightMotorBackTop);
 
+//Inertial sensor
+inertial Inertial = inertial(PORT9);
+
 // Drivetrain https://api.vex.com/v5/home/cpp/Drivetrain.html
 double wheelTravel = 260;   // 3.25" wheel is 260mm wheeltravel
 double trackWidth = 305;    // left wheel to right wheel
 double wheelBase = 228.6;     // backmost wheel to frontmost wheel
 double externalGearRatio = 36/24; // output teeth over input teeth
-drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, wheelTravel, trackWidth, wheelBase, mm, externalGearRatio);
+//drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, wheelTravel, trackWidth, wheelBase, mm, externalGearRatio);
+smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, Inertial, wheelTravel, trackWidth, wheelBase, mm, externalGearRatio);
 
 // Controller
 controller Controller1 = controller(primary);
