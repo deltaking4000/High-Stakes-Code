@@ -91,8 +91,10 @@ void DropClamp(){
   LiftClamp();
   Drivetrain.driveFor(forward, 15, inches);
   //Drivetrain.setTimeout(2, seconds);
-  Drivetrain.turnToHeading( 270, degrees);
-  
+  Drivetrain.turnToHeading(270, degrees);
+  wait(0.5, seconds);
+  Drivetrain.turnToHeading(270, degrees);
+
   // 4. Drive into mobile goal
   Drivetrain.driveFor(reverse, 19, inches);
   wait(0.5,seconds);
@@ -102,6 +104,8 @@ void DropClamp(){
   // 5. Turn to pick up rings
 
   Drivetrain.turnToHeading(90, degrees);
+  wait(0.5, seconds);
+  Drivetrain.turnToHeading(90, degrees);
   Intake.spin(reverse);
   Drivetrain.setTimeout(10, seconds);
   Drivetrain.driveFor(forward, 60, inches);
@@ -109,16 +113,17 @@ void DropClamp(){
 
   // 6. Turn to go into the positive corner
   Brain.Screen.print("The robot is turning to go into the positive corner");
-  Drivetrain.turnToHeading(355, degrees);
+  Drivetrain.turnToHeading(325, degrees);
   Drivetrain.setTimeout(5, seconds);
   Drivetrain.driveFor(reverse, 50, inches);
   Intake.stop();
+  LiftClamp();
+  Drivetrain.driveFor(forward, 3, inches);
   
-
 
   //END
 }
-
+//
 
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
