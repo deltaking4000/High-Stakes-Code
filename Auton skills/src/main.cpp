@@ -117,11 +117,28 @@ void TurntoHeadingCorrection(double angle){
   Brain.Screen.print("The robot is turning to go into the positive corner");
   Drivetrain.turnToHeading(325, degrees);
   Drivetrain.setTimeout(5, seconds);
+  Drivetrain.setDriveVelocity(100, percent);
   Drivetrain.driveFor(reverse, 50, inches);
   Intake.stop();
   LiftClamp();
   Drivetrain.driveFor(forward, 3, inches);
-  
+
+  // 7. Go to wall as reference point
+  Drivetrain.setDriveVelocity(80, percent);
+  Drivetrain.turnToHeading(315, degrees);
+  Drivetrain.driveFor(forward, 40, inches);
+  Drivetrain.turnToHeading(0, degrees);
+  Drivetrain.driveFor(reverse, 30, inches);
+  Drivetrain.setDriveVelocity(10, percent);
+  Drivetrain.driveFor(reverse, 15, inches);
+
+  // 8. Go to corner 2 stake
+  Drivetrain.setTimeout(10, seconds);
+  Drivetrain.driveFor(forward, 17, inches);
+  TurntoHeadingCorrection(90);
+  Drivetrain.driveFor(reverse, 55, inches);
+  wait(0.5, seconds);
+  DropClamp();
 
   //END
 }
