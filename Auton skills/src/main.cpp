@@ -60,6 +60,12 @@ void DropClamp(){
    Brain.Screen.print("The clamp has been placed down");
 }
 
+void TurntoHeadingCorrection(double angle){
+  Drivetrain.turnToHeading(angle, degrees);
+  wait(0.5, seconds);
+  Drivetrain.turnToHeading(angle, degrees);
+
+}
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
 /*                              Autonomous Task                              */
@@ -91,9 +97,7 @@ void DropClamp(){
   LiftClamp();
   Drivetrain.driveFor(forward, 15, inches);
   //Drivetrain.setTimeout(2, seconds);
-  Drivetrain.turnToHeading(270, degrees);
-  wait(0.5, seconds);
-  Drivetrain.turnToHeading(270, degrees);
+  TurntoHeadingCorrection(270);
 
   // 4. Drive into mobile goal
   Drivetrain.driveFor(reverse, 19, inches);
@@ -103,9 +107,7 @@ void DropClamp(){
 
   // 5. Turn to pick up rings
 
-  Drivetrain.turnToHeading(90, degrees);
-  wait(0.5, seconds);
-  Drivetrain.turnToHeading(90, degrees);
+  TurntoHeadingCorrection(90);
   Intake.spin(reverse);
   Drivetrain.setTimeout(10, seconds);
   Drivetrain.driveFor(forward, 60, inches);
