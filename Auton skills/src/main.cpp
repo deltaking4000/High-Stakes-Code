@@ -134,9 +134,11 @@ void TurntoHeadingCorrection(double angle){
 
   // 8. Go to corner 2 stake
   Drivetrain.setTimeout(10, seconds);
-  Drivetrain.driveFor(forward, 17, inches);
+  Drivetrain.driveFor(forward, 18, inches);
   TurntoHeadingCorrection(90);
-  Drivetrain.driveFor(reverse, 60, inches);
+  Drivetrain.driveFor(reverse, 30, inches);
+  TurntoHeadingCorrection(90);
+  Drivetrain.driveFor(reverse, 33, inches);
   wait(0.5, seconds);
   DropClamp();
   wait(0.5, seconds);
@@ -144,7 +146,11 @@ void TurntoHeadingCorrection(double angle){
   // 9. Put mobile goal in corner
   Drivetrain.turnToHeading(55, degrees);
   Drivetrain.setDriveVelocity(100, percent);
-  Drivetrain.driveFor(reverse, 100, inches);
+  Drivetrain.setTimeout(2, seconds);
+  Drivetrain.driveFor(reverse, 40, inches);
+  LiftClamp();
+  Drivetrain.driveFor(forward, 3, inches);
+
   //END
 }
 //
