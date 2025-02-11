@@ -147,7 +147,7 @@ void TurntoHeadingCorrection(double angle){
   Drivetrain.turnToHeading(55, degrees);
   Drivetrain.setDriveVelocity(100, percent);
   Drivetrain.setTimeout(2, seconds);
-  Drivetrain.driveFor(reverse, 40, inches);
+  Drivetrain.driveFor(reverse, 100, inches);
   LiftClamp();
   Drivetrain.driveFor(forward, 3, inches);
 
