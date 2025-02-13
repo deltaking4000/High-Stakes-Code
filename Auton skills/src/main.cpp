@@ -68,10 +68,36 @@ void TurntoHeadingCorrection(double angle){
 }
 //////////////////////////
 
+void drivePID(double distanceInTurns, double velocity){
+  double kP = 0.8;
 
+  // Resetting positions for the motors
+  LeftDriveSmart.resetPosition();
+  RightDriveSmart.resetPosition();
+  //double originalHeading = Inertial.heading();
+  Inertial.resetRotation();
+  
+  while(RightDriveSmart.position(turns) < distanceInTurns ) {
+  
+    double headingError = kP * Inertial.rotation();
 
+    LeftDriveSmart.setVelocity(velocity - headingError, percent);
+    RightDriveSmart.setVelocity(velocity + headingError, percent);
 
+    LeftDriveSmart.spin(forward);
+    RightDriveSmart.spin(forward);
 
+    Brain.Screen.print(headingError);
+    Brain.Screen.clearScreen();
+    //Brain.Screen.newLine(); 
+
+    wait(0.1, seconds);    
+
+  }
+  LeftDriveSmart.stop();
+  RightDriveSmart.stop();
+
+}
 
 /////////////////////////
  void auton17PTS(void) {
@@ -154,6 +180,12 @@ void TurntoHeadingCorrection(double angle){
 
 void auton_nointake(){
 
+  /* INSTRUCTIONS: This code is for when the judge
+  forces our intake to be ziptied. The placement 
+  is different, as the robot must be at a 45 degree 
+  angle with the clamp parallel to the side of the
+  left side stake. */
+
   //START
 
   // 0. Set velocities
@@ -184,6 +216,9 @@ void auton_nointake(){
   LiftClamp();
   Drivetrain.driveFor(forward, 3, inches);
 
+  // 4. Go to corner 1 stake
+  //
+
   //END
 
 }
@@ -201,6 +236,7 @@ void auton_nointake(){
  void autonomous(void) {
   //auton17PTS();
   auton_nointake();
+ // drivePID(7, 30); // 10 turns = 88 inches, 7 is 60 inches
 }
 //
 
