@@ -66,17 +66,15 @@ void TurntoHeadingCorrection(double angle){
   Drivetrain.turnToHeading(angle, degrees);
 
 }
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                              Autonomous Task                              */
-/*                                                                           */
-/*  This task is used to control your robot during the autonomous phase of   */
-/*  a VEX Competition.                                                       */
-/*                                                                           */
-/*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
+//////////////////////////
 
- void autonomous(void) {
+
+
+
+
+
+/////////////////////////
+ void auton17PTS(void) {
 
   //START
 
@@ -152,6 +150,57 @@ void TurntoHeadingCorrection(double angle){
   Drivetrain.driveFor(forward, 3, inches);
 
   //END
+}
+
+void auton_nointake(){
+
+  //START
+
+  // 0. Set velocities
+  Drivetrain.setHeading(135, degrees);
+  Drivetrain.setDriveVelocity(10, percent);
+  Drivetrain.setTurnVelocity(10, percent);
+  Intake.setVelocity(100, percent);
+
+  // 1. Drive into mobile goal
+  LiftClamp();
+  wait(0.5, seconds);
+  Drivetrain.driveFor(reverse, 3, inches);
+  DropClamp();
+  wait(0.5, seconds);
+
+  // 2. Put the preloaded ring on the stake
+  Intake.spin(reverse);
+  wait(2, seconds);
+  Intake.spin(forward);
+  wait(1, seconds);
+  Intake.stop();
+  
+  // 3. Put mobile goal in corner
+  Drivetrain.turnToHeading(55, degrees);
+  Drivetrain.setDriveVelocity(100, percent);
+  Drivetrain.setTimeout(2, seconds);
+  Drivetrain.driveFor(reverse, 100, inches);
+  LiftClamp();
+  Drivetrain.driveFor(forward, 3, inches);
+
+  //END
+
+}
+
+/*---------------------------------------------------------------------------*/
+/*                                                                           */
+/*                              Autonomous Task                              */
+/*                                                                           */
+/*  This task is used to control your robot during the autonomous phase of   */
+/*  a VEX Competition.                                                       */
+/*                                                                           */
+/*  You must modify the code to add your own robot specific commands here.   */
+/*---------------------------------------------------------------------------*/
+
+ void autonomous(void) {
+  //auton17PTS();
+  auton_nointake();
 }
 //
 
