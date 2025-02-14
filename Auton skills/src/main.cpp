@@ -91,7 +91,7 @@ void drivePID(double distanceInTurns, double velocity){
     Brain.Screen.clearScreen();
     //Brain.Screen.newLine(); 
 
-    wait(0.1, seconds);    
+    wait(20, msec);    
 
   }
   LeftDriveSmart.stop();
