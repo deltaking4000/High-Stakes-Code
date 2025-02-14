@@ -189,7 +189,9 @@ void auton_nointake(){
   //START
 
   // 0. Set velocities
-  Drivetrain.setHeading(135, degrees);
+  Brain.Screen.print("auton no intake running");
+  Brain.Screen.newLine();
+  Drivetrain.setHeading(145, degrees);
   Drivetrain.setDriveVelocity(10, percent);
   Drivetrain.setTurnVelocity(10, percent);
   Intake.setVelocity(100, percent);
@@ -216,7 +218,36 @@ void auton_nointake(){
   LiftClamp();
   Drivetrain.driveFor(forward, 3, inches);
 
-  // 4. Go to corner 1 stake
+  // 4. Go to wall to reset heading
+  Drivetrain.turnToHeading(45, degrees);
+  Drivetrain.setDriveVelocity(15, percent);
+  Drivetrain.driveFor(forward, 24, inches);
+  Drivetrain.turnToHeading(0, degrees);
+  Drivetrain.setTimeout(4, seconds);
+  Drivetrain.driveFor(reverse, 40, inches);
+  wait(0.5, seconds);
+  Inertial.setHeading(0, degrees);
+  Drivetrain.setHeading(0, degrees);
+
+  // 5. Go to corner 1 stake
+  Drivetrain.setDriveVelocity(10, percent);
+  Drivetrain.driveFor(forward, 24, inches);
+  TurntoHeadingCorrection(90);
+  drivePID(5.5, 20);
+  TurntoHeadingCorrection(270);
+  Drivetrain.setDriveVelocity(15, percent);
+  Drivetrain.driveFor(reverse, 12, inches);
+  wait(0.5, seconds);
+  DropClamp();
+
+  // 6. Put mobile goal in corner
+  Drivetrain.turnToHeading(305, degrees);
+  Drivetrain.setDriveVelocity(100, percent);
+  Drivetrain.setTimeout(2, seconds);
+  Drivetrain.driveFor(reverse, 100, inches);
+  LiftClamp();
+  Drivetrain.driveFor(forward, 3, inches);
+
   //
 
   //END
@@ -236,7 +267,9 @@ void auton_nointake(){
  void autonomous(void) {
   //auton17PTS();
   auton_nointake();
- // drivePID(7, 30); // 10 turns = 88 inches, 7 is 60 inches
+  //drivePID(5.5, 20); // 10 turns = 88 inches, 7 is 60 inches
+ //Drivetrain.setDriveVelocity(20, percent);
+ //Drivetrain.driveFor(forward, 10, inches);
 }
 //
 
