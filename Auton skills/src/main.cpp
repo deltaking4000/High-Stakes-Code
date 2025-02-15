@@ -44,7 +44,8 @@ competition Competition;
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
-
+  Brain.Screen.print("running preauton");
+  Brain.Screen.newLine();
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
   // Start calibration with the calibration time set to 3 seconds.
@@ -86,9 +87,9 @@ void drivePID(double distanceInTurns, double velocity){
 
     LeftDriveSmart.spin(forward);
     RightDriveSmart.spin(forward);
-
-    Brain.Screen.print(headingError);
     Brain.Screen.clearScreen();
+    Brain.Screen.print(headingError);
+
     //Brain.Screen.newLine(); 
 
     wait(20, msec);    
@@ -248,6 +249,27 @@ void auton_nointake(){
   LiftClamp();
   Drivetrain.driveFor(forward, 3, inches);
 
+  // 7. Go to wall as reference point
+  Drivetrain.driveFor(forward, 16, inches);
+  TurntoHeadingCorrection(0);
+  Drivetrain.setDriveVelocity(10, percent);
+  Drivetrain.setTimeout(4, seconds);
+  Drivetrain.driveFor(reverse, 14, inches);
+  wait(0.5, seconds);
+
+  // 8. Go to the other side and slam the stake in
+  drivePID(10, 30);
+  Drivetrain.turnToHeading(315, degrees);
+  drivePID(5.5, 30);
+  TurntoHeadingCorrection(250);
+  Drivetrain.setTimeout(3, seconds);
+  Drivetrain.driveFor(reverse, 100, inches);
+  wait(0.5, seconds);
+  Drivetrain.driveFor(forward, 4, inches);
+
+  // 9. Get corner 4 stake
+  Brain.Screen.print("SIGMA SIGMA SIGMA SIGMA ALERT");
+
   //
 
   //END
@@ -267,7 +289,7 @@ void auton_nointake(){
  void autonomous(void) {
   //auton17PTS();
   auton_nointake();
-  //drivePID(5.5, 20); // 10 turns = 88 inches, 7 is 60 inches
+  //drivePID(15, 30); // 10 turns = 88 inches, 7 is 60 inches
  //Drivetrain.setDriveVelocity(20, percent);
  //Drivetrain.driveFor(forward, 10, inches);
 }
