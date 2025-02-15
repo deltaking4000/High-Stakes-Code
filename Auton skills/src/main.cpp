@@ -81,7 +81,7 @@ void drivePID(double distanceInTurns, double velocity){
   
     double headingError = kP * Inertial.rotation();
 
-    LeftDriveSmart.setVelocity(velocity - headingError, percent);
+    LeftDriveSmart.setVelocity(velocity, percent);
     RightDriveSmart.setVelocity(velocity + headingError, percent);
 
     LeftDriveSmart.spin(forward);
