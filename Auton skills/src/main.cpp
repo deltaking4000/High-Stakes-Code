@@ -91,7 +91,6 @@ void drivePID(double distanceInTurns, double velocity){
     Brain.Screen.print(headingError);
 
     //Brain.Screen.newLine(); 
-
     wait(20, msec);    
 
   }
@@ -131,7 +130,6 @@ void drivePID(double distanceInTurns, double velocity){
   wait(0.5, seconds);
 
   // 5. Turn to pick up rings
-
   TurntoHeadingCorrection(90);
   Intake.spin(reverse);
   Drivetrain.setTimeout(10, seconds);
@@ -269,8 +267,13 @@ void auton_nointake(){
 
   // 9. Get corner 4 stake
   Brain.Screen.print("SIGMA SIGMA SIGMA SIGMA ALERT");
-
-  //
+  drivePID(2.2, 20);
+  TurntoHeadingCorrection(272);
+  drivePID(13, 40);
+  Drivetrain.driveFor(reverse, 5, inches);
+  // sigmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaarizzlerrrrrrrrrrrrrrrrrrrrr
+  
+  // 23 points getting all four corners and 3 pts for the preload on one of the stakes
 
   //END
 
