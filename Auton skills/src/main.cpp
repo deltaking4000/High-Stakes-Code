@@ -205,8 +205,6 @@ void auton_nointake(){
   // 2. Put the preloaded ring on the stake
   Intake.spin(reverse);
   wait(2, seconds);
-  Intake.spin(forward);
-  wait(1, seconds);
   Intake.stop();
   
   // 3. Put mobile goal in corner
@@ -219,18 +217,18 @@ void auton_nointake(){
 
   // 4. Go to wall to reset heading
   Drivetrain.turnToHeading(45, degrees);
-  Drivetrain.setDriveVelocity(15, percent);
+  Drivetrain.setDriveVelocity(20, percent);
   Drivetrain.driveFor(forward, 24, inches);
   Drivetrain.turnToHeading(0, degrees);
-  Drivetrain.setTimeout(4, seconds);
+  Drivetrain.setTimeout(3, seconds);
   Drivetrain.driveFor(reverse, 40, inches);
-  wait(0.5, seconds);
+  wait(0.2, seconds);
   Inertial.setHeading(0, degrees);
   Drivetrain.setHeading(0, degrees);
 
   // 5. Go to corner 1 stake
   Drivetrain.setDriveVelocity(10, percent);
-  Drivetrain.driveFor(forward, 23, inches);
+  Drivetrain.driveFor(forward, 21.5, inches);
   TurntoHeadingCorrection(90);
   drivePID(5.5, 20);
   TurntoHeadingCorrection(270);
