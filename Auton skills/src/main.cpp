@@ -230,12 +230,12 @@ void auton_nointake(){
 
   // 5. Go to corner 1 stake
   Drivetrain.setDriveVelocity(10, percent);
-  Drivetrain.driveFor(forward, 24, inches);
+  Drivetrain.driveFor(forward, 23, inches);
   TurntoHeadingCorrection(90);
   drivePID(5.5, 20);
   TurntoHeadingCorrection(270);
   Drivetrain.setDriveVelocity(15, percent);
-  Drivetrain.driveFor(reverse, 12, inches);
+  Drivetrain.driveFor(reverse, 14, inches);
   wait(0.5, seconds);
   DropClamp();
 
@@ -255,7 +255,7 @@ void auton_nointake(){
   Drivetrain.driveFor(reverse, 14, inches);
   wait(0.5, seconds);
 
-  // 8. Go to the other side and slam the stake in
+  // 8. Go to the other side and slam the corner 3 stake in
   drivePID(10, 30);
   Drivetrain.turnToHeading(315, degrees);
   drivePID(5.5, 30);
@@ -264,15 +264,16 @@ void auton_nointake(){
   Drivetrain.driveFor(reverse, 100, inches);
   wait(0.5, seconds);
   Drivetrain.driveFor(forward, 4, inches);
+  Drivetrain.turnToHeading(225, degrees);
 
   // 9. Get corner 4 stake
   Brain.Screen.print("SIGMA SIGMA SIGMA SIGMA ALERT");
   drivePID(2.2, 20);
-  TurntoHeadingCorrection(272);
+  TurntoHeadingCorrection(275);
   drivePID(13, 40);
   Drivetrain.driveFor(reverse, 5, inches);
   // sigmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaarizzlerrrrrrrrrrrrrrrrrrrrr
-  
+
   // 23 points getting all four corners and 3 pts for the preload on one of the stakes
 
   //END
