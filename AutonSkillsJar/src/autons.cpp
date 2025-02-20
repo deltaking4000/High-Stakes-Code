@@ -139,3 +139,16 @@ void holonomic_odom_test(){
   chassis.holonomic_drive_to_pose(0, 18, 270);
   chassis.holonomic_drive_to_pose(0, 0, 0);
 }
+
+void autonStates(){
+
+  //START
+
+  Brain.Screen.print("autonStates running");
+  Brain.Screen.newLine();
+
+  odom_constants();
+
+  //END*/
+
+}

@@ -136,7 +136,7 @@ void pre_auton() {
     Brain.Screen.printAt(5, 120, "Selected Auton:");
     switch(current_auton_selection){
       case 0:
-        Brain.Screen.printAt(5, 140, "Auton 1");
+        Brain.Screen.printAt(5, 140, "Auton States");
         break;
       case 1:
         Brain.Screen.printAt(5, 140, "Auton 2");
@@ -181,7 +181,7 @@ void autonomous(void) {
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      drive_test();
+      autonStates();
       break;
     case 1:         
       drive_test();
