@@ -9,13 +9,11 @@ extern motor LeftMotorBackTop;
 extern motor RightMotorFront;
 extern motor RightMotorBackBottom;
 extern motor RightMotorBackTop;
-extern motor_group LeftDriveSmart; 
-extern motor_group RightDriveSmart;
-extern smartdrive Drivetrain;
 extern controller Controller1;
+extern motor IntakeMotorA; 
+extern motor IntakeMotorB; 
 extern motor_group Intake;
 extern digital_out Clamp;
-extern inertial Inertial;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

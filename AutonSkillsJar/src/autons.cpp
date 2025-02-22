@@ -151,4 +151,17 @@ void autonStates(){
 
   //END*/
 
+void auton_debug(){
+
+  //START
+
+  Brain.Screen.clearScreen();
+
+  Brain.Screen.print("auton_debug running");
+  Brain.Screen.newLine();
+
+
+  Brain.Screen.print("drive_stop");
+  Brain.Screen.newLine();
+  chassis.drive_stop(brakeType::hold);
 }
