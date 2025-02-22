@@ -151,6 +151,26 @@ void autonStates(){
 
   //END*/
 
+void TakeTopRingInStack() {
+  IntakeMotorA.spin(reverse);
+  chassis.drive_timeout = 1000;
+  chassis.turn_timeout = 1000;
+  chassis.drive_distance(1);
+  // Take bottom ring
+  wait(0.5, seconds);
+  Intake.stop();
+  // Turn to side and spin out bottom ring
+  chassis.turn_to_angle(60);
+  IntakeMotorA.spin(forward);
+  wait(1, seconds);
+  // Turn back to top ring now on floor and intake
+  chassis.turn_to_angle(0);
+  Intake.spin(reverse);
+  chassis.drive_distance(2);
+  wait(1, seconds);
+  Intake.stop(); 
+}
+
 void auton_debug(){
 
   //START
@@ -160,6 +180,7 @@ void auton_debug(){
   Brain.Screen.print("auton_debug running");
   Brain.Screen.newLine();
 
+  TakeTopRingInStack();
 
   Brain.Screen.print("drive_stop");
   Brain.Screen.newLine();
