@@ -58,7 +58,7 @@ Drive chassis(
   //External ratio, must be in decimal, in the format of input teeth/output teeth.
   //If your motor has an 84-tooth gear and your wheel has a 60-tooth gear, this value will be 1.4.
   //If the motor drives the wheel directly, this value is 1:
-  24/36,
+  48.0/60.0,
 
   //Gyro scale, this is what your gyro reads when you spin the robot 360 degrees.
   //For most cases 360 will do fine here, but this scale factor can be very helpful when precision is necessary.
@@ -119,7 +119,11 @@ void pre_auton() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
   default_constants();
+  chassis.Gyro.calibrate(3);
   Intake.setVelocity(100, percent);
+  RightMotorFront.resetPosition();
+  RightMotorBackBottom.resetPosition();
+  RightMotorBackTop.resetPosition();
 
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
