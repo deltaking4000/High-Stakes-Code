@@ -10,10 +10,16 @@
 
 void default_constants(){
   // Each constant set is in the form of (maxVoltage, kP, kI, kD, startI).
-  chassis.set_drive_constants(10, 1.5, 0, 10, 0);
-  chassis.set_heading_constants(6, .4, 0, 1, 0);
-  chassis.set_turn_constants(12, .4, .03, 3, 15);
-  chassis.set_swing_constants(12, .3, .001, 2, 15);
+  float drive_max_voltage = 6; // 10
+  float drive_kp = 1.5;
+  float drive_ki = 0;
+  float drive_kd = 10;
+  chassis.set_drive_constants(drive_max_voltage, drive_kp, drive_ki, drive_kd, 0);
+  float heading_max_voltage = 4; // 6
+  chassis.set_heading_constants(heading_max_voltage, .4, 0, 1, 0);
+  float turn_max_voltage = 8; // 12
+  chassis.set_turn_constants(turn_max_voltage, .4, .03, 3, 15);
+  chassis.set_swing_constants(turn_max_voltage, .3, .001, 2, 15);
 
   // Each exit condition set is in the form of (settle_error, settle_time, timeout).
   chassis.set_drive_exit_conditions(1.5, 300, 5000);
@@ -29,8 +35,8 @@ void default_constants(){
 
 void odom_constants(){
   default_constants();
-  chassis.heading_max_voltage = 10;
-  chassis.drive_max_voltage = 8;
+  chassis.heading_max_voltage = 6;//10
+  chassis.drive_max_voltage = 4;//8
   chassis.drive_settle_error = 3;
   chassis.boomerang_lead = .5;
   chassis.drive_min_voltage = 0;
@@ -108,6 +114,9 @@ void odom_test(){
     Brain.Screen.printAt(5,60, "Heading: %f", chassis.get_absolute_heading());
     Brain.Screen.printAt(5,80, "ForwardTracker: %f", chassis.get_ForwardTracker_position());
     Brain.Screen.printAt(5,100, "SidewaysTracker: %f", chassis.get_SidewaysTracker_position());
+    Brain.Screen.printAt(5,120, "RM positions: %f %f %f", 
+      RightMotorFront.position(deg), RightMotorBackBottom.position(deg), RightMotorBackTop.position(deg));
+    Brain.Screen.printAt(5,140, "RM group positions: %f", chassis.DriveR.position(deg));
     task::sleep(20);
   }
 }
@@ -147,26 +156,213 @@ void autonStates(){
   Brain.Screen.print("autonStates running");
   Brain.Screen.newLine();
 
+  // 0. Set velocities
   odom_constants();
+  // Drivetrain.setHeading(145, degrees);
+  // Drivetrain.setDriveVelocity(10, percent);
+  // Drivetrain.setTurnVelocity(10, percent);
+  Intake.setVelocity(100, percent);
+  chassis.set_coordinates(0, 0, 0);
+
+
+  // 1. Put the preloaded ring on the stake
+  Intake.spin(reverse);
+  wait(2, seconds);
+  Intake.spin(forward);
+  wait(1, seconds);
+  Intake.stop();
+
+  // 2. Drive into mobile goal
+  LiftClamp();
+  chassis.drive_distance(12.5);
+  chassis.turn_to_angle(90);
+  chassis.drive_distance(-17.5);
+  wait(0.5, seconds);
+  DropClamp();
+  wait(0.5, seconds);
+
+  // 3. Pick up rings in left corner
+  chassis.turn_to_angle(270);
+  Intake.spin(reverse);
+  chassis.drive_distance(43);
+  chassis.turn_to_angle(225);
+  chassis.drive_distance(-14);
+  chassis.turn_to_angle(180);
+  chassis.drive_distance(19.5);
+  /*// rings 3 and 4
+  chassis.drive_to_pose(-48, 26.4, 180);
+  chassis.drive_distance(24);*/
+
+  // 4. Put mobile goal in left corner
+  chassis.turn_to_angle(55);
+  chassis.drive_distance(-12);
+  LiftClamp();
+  wait(0.5, seconds);
+  chassis.drive_distance(20);
+  Intake.stop();
+
+  // 5. Pick up second mogo
+  chassis.turn_to_angle(270);
+  chassis.drive_distance(-60);
+  wait(0.5, seconds);
+  DropClamp();
+  wait(0.5, seconds);
+  chassis.turn_to_angle(90);
+  Intake.spin(reverse);
+
+  // 6. Pick up rings in right corner
+  chassis.drive_distance(43);
+  chassis.turn_to_angle(135);
+  chassis.drive_distance(-14);
+  chassis.turn_to_angle(180);
+  chassis.drive_distance(19.5);
+
+  // 7. Put mobile goal in right corner
+  chassis.turn_to_angle(315);
+  chassis.drive_distance(-12);
+  LiftClamp();
+  wait(0.5, seconds);
+  chassis.drive_distance(20);
+  Intake.stop();
+  
+
+
+
+  // 2. Put the preloaded ring on the stake
+  // Intake.spin(reverse);
+  // wait(2, seconds);
+  
+  // 3. Pick up first five rings and max out the stake
+  // Drivetrain.turnToHeading(352, degrees);
+  // a. first ring
+  // drivePID(3.5, 35);
+  // TurntoHeadingCorrection(270);
+  // b. second ring
+  // drivePID(3, 35);
+  // TurntoHeadingCorrection(180);
+  // c. third rings
+  // drivePID(4.25, 20);// pick the ring not on the line as bonus after code finished
+  // Drivetrain.setDriveVelocity(15, percent);
+  // Drivetrain.setTimeout(1, seconds);
+  // Drivetrain.drive(forward);
+  // Drivetrain.driveFor(reverse, 22, inches);
+  // TurntoHeadingCorrection(270);
+  // drivePID(1.5, 20);
+  // Drivetrain.driveFor(reverse, 10, inches);
+  
+/*
+  // 4. Use wall as reference point
+  Drivetrain.setTimeout(1500, msec);
+  Drivetrain.setDriveVelocity(20, percent);
+  Drivetrain.driveFor(forward, 10, inches);
+  wait(0.2, seconds);
+  Drivetrain.setHeading(180, degrees);
+  Drivetrain.driveFor(reverse, 5, inches);
+  */
+
+  // 3. Put mobile goal in corner
+  // Drivetrain.turnToHeading(55, degrees);
+  // Drivetrain.setDriveVelocity(100, percent);
+  // Drivetrain.setTimeout(1, seconds);
+  // Drivetrain.driveFor(reverse, 50, inches);
+  // LiftClamp();
+  // Drivetrain.driveFor(forward, 3, inches);
+  // Intake.stop();
+
+  // 4. Go to wall to reset heading
+  // Drivetrain.turnToHeading(45, degrees);
+  // Drivetrain.setDriveVelocity(20, percent);
+  // Drivetrain.driveFor(forward, 24, inches);
+  // Drivetrain.turnToHeading(0, degrees);
+  // Drivetrain.setTimeout(3, seconds);
+  // Drivetrain.driveFor(reverse, 40, inches);
+  // wait(0.2, seconds);
+  // Inertial.setHeading(0, degrees);
+  // Drivetrain.setHeading(0, degrees);
+
+  // 5. Go to corner 1 stake
+  // Drivetrain.setDriveVelocity(10, percent);
+  // Drivetrain.driveFor(forward, 21.5, inches);
+  // TurntoHeadingCorrection(90);
+  // drivePID(5.5, 20);
+  // TurntoHeadingCorrection(270);
+  // Drivetrain.setDriveVelocity(15, percent);
+  // Drivetrain.driveFor(reverse, 14, inches);
+  // wait(0.5, seconds);
+  // DropClamp();
+/*
+  // 5. Turn to pick up rings
+  TurntoHeadingCorrection(90);
+  Intake.spin(reverse);
+  Drivetrain.setTimeout(10, seconds);
+  Drivetrain.driveFor(forward, 60, inches);
+  wait(2, seconds);
+
+  // 6. Turn to go into the positive corner
+  Brain.Screen.print("The robot is turning to go into the positive corner");
+  Drivetrain.turnToHeading(325, degrees);
+  Drivetrain.setTimeout(5, seconds);
+  Drivetrain.setDriveVelocity(100, percent);
+  Drivetrain.driveFor(reverse, 50, inches);
+  Intake.stop();
+  LiftClamp();
+  Drivetrain.driveFor(forward, 3, inches);
+
+  // 7. Go to wall as reference point
+  Drivetrain.driveFor(forward, 16, inches);
+  TurntoHeadingCorrection(0);
+  Drivetrain.setDriveVelocity(10, percent);
+  Drivetrain.setTimeout(4, seconds);
+  Drivetrain.driveFor(reverse, 14, inches);
+  wait(0.5, seconds);
+
+  // 8. Go to the other side and slam the corner 3 stake in
+  drivePID(10, 30);
+  Drivetrain.turnToHeading(315, degrees);
+  drivePID(5.5, 30);
+  TurntoHeadingCorrection(250);
+  Drivetrain.setTimeout(3, seconds);
+  Drivetrain.driveFor(reverse, 100, inches);
+  wait(0.5, seconds);
+  Drivetrain.driveFor(forward, 4, inches);
+  Drivetrain.turnToHeading(225, degrees);
+
+  // 9. Get corner 4 stake
+  Brain.Screen.print("SIGMA SIGMA SIGMA SIGMA ALERT");
+  drivePID(2.2, 20);
+  TurntoHeadingCorrection(275);
+  drivePID(15, 40); // 13 inches originally
+  Drivetrain.driveFor(reverse, 5, inches);
+  // sigmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaarizzlerrrrrrrrrrrrrrrrrrrrr
+
+  // 23 points getting all four corners and 3 pts for the preload on one of the stakes
+
 
   //END*/
 
+  Brain.Screen.print("drive_stop");
+  Brain.Screen.newLine();
+  chassis.drive_stop(brakeType::hold);
+
+}
+
 void TakeTopRingInStack() {
   IntakeMotorA.spin(reverse);
-  chassis.drive_timeout = 1000;
-  chassis.turn_timeout = 1000;
-  chassis.drive_distance(1);
+  //chassis.drive_timeout = 1000;
+  // chassis.turn_timeout = 1000;
+  chassis.drive_distance(3);
   // Take bottom ring
   wait(0.5, seconds);
   Intake.stop();
   // Turn to side and spin out bottom ring
+  chassis.drive_distance(-3);
   chassis.turn_to_angle(60);
   IntakeMotorA.spin(forward);
-  wait(1, seconds);
+  wait(2, seconds);
   // Turn back to top ring now on floor and intake
   chassis.turn_to_angle(0);
   Intake.spin(reverse);
-  chassis.drive_distance(2);
+  chassis.drive_distance(6);
   wait(1, seconds);
   Intake.stop(); 
 }
@@ -180,9 +376,23 @@ void auton_debug(){
   Brain.Screen.print("auton_debug running");
   Brain.Screen.newLine();
 
-  TakeTopRingInStack();
+  Drive& Drivetrain = chassis;
+  
+  odom_constants();
+  chassis.set_coordinates(0, 0, 0);
+  Drivetrain.drive_to_pose(24, 24, 270);
+
+  // chassis.turn_to_point(24, 24);
+  // chassis.drive_to_point(24,24);
+  // chassis.drive_to_point(0,0);
+  // chassis.turn_to_angle(0);
+
+
+
+  //TakeTopRingInStack();
 
   Brain.Screen.print("drive_stop");
   Brain.Screen.newLine();
   chassis.drive_stop(brakeType::hold);
+
 }
