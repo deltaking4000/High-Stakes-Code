@@ -278,6 +278,146 @@ void auton_nointake(){
 
 }
 
+void autonStates(){ // NOT COMPLETE
+
+  /* INSTRUCTIONS: This code is for when the judge
+  forces our intake to be ziptied. The placement 
+  is different, as the robot must be at a 45 degree 
+  angle with the clamp parallel to the side of the
+  left side stake. */
+
+  //START
+
+  // 0. Set velocities
+  Brain.Screen.print("auton no intake running");
+  Brain.Screen.newLine();
+  Drivetrain.setHeading(145, degrees);
+  Drivetrain.setDriveVelocity(10, percent);
+  Drivetrain.setTurnVelocity(10, percent);
+  Intake.setVelocity(100, percent);
+
+  // 1. Drive into mobile goal
+  LiftClamp();
+  wait(0.5, seconds);
+  Drivetrain.driveFor(reverse, 3, inches);
+  DropClamp();
+  wait(0.5, seconds);
+
+  // 2. Put the preloaded ring on the stake
+  Intake.spin(reverse);
+  wait(2, seconds);
+  //Intake.stop();
+  
+  // 3. Pick up first five rings and max out the stake
+  Drivetrain.turnToHeading(352, degrees);
+  //Intake.spin(reverse);
+  // first ring
+  drivePID(3.5, 35);
+  TurntoHeadingCorrection(270);
+  // second ring
+  drivePID(3, 35);
+  TurntoHeadingCorrection(180);
+  // third rings
+  drivePID(4.25, 20);// pick the ring not on the line as bonus after code finished
+  Drivetrain.setDriveVelocity(15, percent);
+  Drivetrain.setTimeout(1, seconds);
+  Drivetrain.drive(forward);
+  Drivetrain.driveFor(reverse, 22, inches);
+  TurntoHeadingCorrection(270);
+  drivePID(1.5, 20);
+  Drivetrain.driveFor(reverse, 10, inches);
+  
+/*
+  // 4. Use wall as reference point
+  Drivetrain.setTimeout(1500, msec);
+  Drivetrain.setDriveVelocity(20, percent);
+  Drivetrain.driveFor(forward, 10, inches);
+  wait(0.2, seconds);
+  Drivetrain.setHeading(180, degrees);
+  Drivetrain.driveFor(reverse, 5, inches);
+  */
+
+  // 3. Put mobile goal in corner
+  Drivetrain.turnToHeading(55, degrees);
+  Drivetrain.setDriveVelocity(100, percent);
+  Drivetrain.setTimeout(1, seconds);
+  Drivetrain.driveFor(reverse, 50, inches);
+  LiftClamp();
+  Drivetrain.driveFor(forward, 3, inches);
+  Intake.stop();
+
+  // 4. Go to wall to reset heading
+  Drivetrain.turnToHeading(45, degrees);
+  Drivetrain.setDriveVelocity(20, percent);
+  Drivetrain.driveFor(forward, 24, inches);
+  Drivetrain.turnToHeading(0, degrees);
+  Drivetrain.setTimeout(3, seconds);
+  Drivetrain.driveFor(reverse, 40, inches);
+  wait(0.2, seconds);
+  Inertial.setHeading(0, degrees);
+  Drivetrain.setHeading(0, degrees);
+
+  // 5. Go to corner 1 stake
+  Drivetrain.setDriveVelocity(10, percent);
+  Drivetrain.driveFor(forward, 21.5, inches);
+  TurntoHeadingCorrection(90);
+  drivePID(5.5, 20);
+  TurntoHeadingCorrection(270);
+  Drivetrain.setDriveVelocity(15, percent);
+  Drivetrain.driveFor(reverse, 14, inches);
+  wait(0.5, seconds);
+  DropClamp();
+/*
+  // 5. Turn to pick up rings
+  TurntoHeadingCorrection(90);
+  Intake.spin(reverse);
+  Drivetrain.setTimeout(10, seconds);
+  Drivetrain.driveFor(forward, 60, inches);
+  wait(2, seconds);
+
+  // 6. Turn to go into the positive corner
+  Brain.Screen.print("The robot is turning to go into the positive corner");
+  Drivetrain.turnToHeading(325, degrees);
+  Drivetrain.setTimeout(5, seconds);
+  Drivetrain.setDriveVelocity(100, percent);
+  Drivetrain.driveFor(reverse, 50, inches);
+  Intake.stop();
+  LiftClamp();
+  Drivetrain.driveFor(forward, 3, inches);
+
+  // 7. Go to wall as reference point
+  Drivetrain.driveFor(forward, 16, inches);
+  TurntoHeadingCorrection(0);
+  Drivetrain.setDriveVelocity(10, percent);
+  Drivetrain.setTimeout(4, seconds);
+  Drivetrain.driveFor(reverse, 14, inches);
+  wait(0.5, seconds);
+
+  // 8. Go to the other side and slam the corner 3 stake in
+  drivePID(10, 30);
+  Drivetrain.turnToHeading(315, degrees);
+  drivePID(5.5, 30);
+  TurntoHeadingCorrection(250);
+  Drivetrain.setTimeout(3, seconds);
+  Drivetrain.driveFor(reverse, 100, inches);
+  wait(0.5, seconds);
+  Drivetrain.driveFor(forward, 4, inches);
+  Drivetrain.turnToHeading(225, degrees);
+
+  // 9. Get corner 4 stake
+  Brain.Screen.print("SIGMA SIGMA SIGMA SIGMA ALERT");
+  drivePID(2.2, 20);
+  TurntoHeadingCorrection(275);
+  drivePID(15, 40); // 13 inches originally
+  Drivetrain.driveFor(reverse, 5, inches);
+  // sigmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaarizzlerrrrrrrrrrrrrrrrrrrrr
+
+  // 23 points getting all four corners and 3 pts for the preload on one of the stakes
+
+  //END*/
+
+}
+
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
 /*                              Autonomous Task                              */
@@ -291,9 +431,10 @@ void auton_nointake(){
  void autonomous(void) {
   //auton17PTS();
   auton_nointake();
+  //autonStates();
   //drivePID(15, 30); // 10 turns = 88 inches, 7 is 60 inches
- //Drivetrain.setDriveVelocity(20, percent);
- //Drivetrain.driveFor(forward, 10, inches);
+  //Drivetrain.setDriveVelocity(20, percent);
+  //Drivetrain.driveFor(forward, 10, inches);
 }
 //
 
