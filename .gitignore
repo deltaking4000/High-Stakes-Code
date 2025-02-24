@@ -3,4 +3,4 @@
 *.elf
 *.map
 *.o
-/SecondDTMegabytecode/build
+*.json
