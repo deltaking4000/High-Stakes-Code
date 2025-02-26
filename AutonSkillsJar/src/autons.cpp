@@ -37,6 +37,7 @@ void odom_constants(){
   default_constants();
   chassis.heading_max_voltage = 6;//10
   chassis.drive_max_voltage = 4;//8
+  chassis.turn_max_voltage = 6; // 12
   chassis.drive_settle_error = 3;
   chassis.boomerang_lead = .5;
   chassis.drive_min_voltage = 0;
@@ -45,12 +46,12 @@ void odom_constants(){
 //////////////////////////
 void LiftClamp(){
   Clamp.set(true);
-   Brain.Screen.print("The clamp has been lifted");
+  //Brain.Screen.print("The clamp has been lifted");
 }
 
 void DropClamp(){
   Clamp.set(false);
-   Brain.Screen.print("The clamp has been placed down");
+  //Brain.Screen.print("The clamp has been placed down");
 }
 
 //////////////////////////
@@ -174,36 +175,37 @@ void autonStates(){
 
   // 2. Drive into mobile goal
   LiftClamp();
-  chassis.drive_distance(12.5);
+  chassis.drive_distance(12);
   chassis.turn_to_angle(90);
-  chassis.drive_distance(-17.5);
+  chassis.drive_distance(-18.5);
   wait(0.5, seconds);
   DropClamp();
   wait(0.5, seconds);
 
   // 3. Pick up rings in left corner
   chassis.turn_to_angle(270);
-  Intake.spin(reverse);
+  Intake.spin(reverse);  
   chassis.drive_distance(43);
   chassis.turn_to_angle(225);
   chassis.drive_distance(-14);
   chassis.turn_to_angle(180);
   chassis.drive_distance(19.5);
-  /*// rings 3 and 4
-  chassis.drive_to_pose(-48, 26.4, 180);
-  chassis.drive_distance(24);*/
 
   // 4. Put mobile goal in left corner
   chassis.turn_to_angle(55);
-  chassis.drive_distance(-12);
+  chassis.drive_distance(-11);
   LiftClamp();
   wait(0.5, seconds);
-  chassis.drive_distance(20);
+  chassis.drive_distance(21);
   Intake.stop();
 
   // 5. Pick up second mogo
   chassis.turn_to_angle(270);
-  chassis.drive_distance(-60);
+  Brain.Screen.print( "Heading: %f", chassis.get_absolute_heading());
+  Brain.Screen.newLine();
+  chassis.drive_distance(-62);
+  Brain.Screen.print( "Heading: %f", chassis.get_absolute_heading());
+  Brain.Screen.newLine();
   wait(0.5, seconds);
   DropClamp();
   wait(0.5, seconds);
@@ -211,18 +213,18 @@ void autonStates(){
   Intake.spin(reverse);
 
   // 6. Pick up rings in right corner
-  chassis.drive_distance(43);
+  chassis.drive_distance(40);
   chassis.turn_to_angle(135);
   chassis.drive_distance(-14);
   chassis.turn_to_angle(180);
   chassis.drive_distance(19.5);
 
   // 7. Put mobile goal in right corner
-  chassis.turn_to_angle(315);
+  chassis.turn_to_angle(305);
   chassis.drive_distance(-12);
   LiftClamp();
   wait(0.5, seconds);
-  chassis.drive_distance(20);
+  chassis.drive_distance(20); // need to position on first foam tile
   Intake.stop();
   
 
