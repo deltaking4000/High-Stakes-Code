@@ -26,7 +26,7 @@ motor_group RightDriveSmart = motor_group(RightMotorFront, RightMotorBackBottom,
 double wheelTravel = 260;   // 3.25" wheel is 260mm wheeltravel
 double trackWidth = 305;    // left wheel to right wheel
 double wheelBase = 228.6;     // backmost wheel to frontmost wheel
-double externalGearRatio = 36/24; // output teeth over input teeth
+double externalGearRatio = 60/48; // output teeth over input teeth
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, wheelTravel, trackWidth, wheelBase, mm, externalGearRatio);
 
 // Controller
