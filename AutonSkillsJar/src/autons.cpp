@@ -35,9 +35,9 @@ void default_constants(){
 
 void odom_constants(){
   default_constants();
-  chassis.heading_max_voltage = 6;//10
+  chassis.heading_max_voltage = 8;//10
   chassis.drive_max_voltage = 4;//8
-  chassis.turn_max_voltage = 6; // 12
+  chassis.turn_max_voltage = 8; // 12
   chassis.drive_settle_error = 3;
   chassis.boomerang_lead = .5;
   chassis.drive_min_voltage = 0;
@@ -168,9 +168,9 @@ void autonStates(){
 
   // 1. Put the preloaded ring on the stake
   Intake.spin(reverse);
-  wait(2, seconds);
-  Intake.spin(forward);
   wait(1, seconds);
+  //Intake.spin(forward);
+  //wait(1, seconds);
   Intake.stop();
 
   // 2. Drive into mobile goal
@@ -213,7 +213,7 @@ void autonStates(){
   Intake.spin(reverse);
 
   // 6. Pick up rings in right corner
-  chassis.drive_distance(40);
+  chassis.drive_distance(38);
   chassis.turn_to_angle(135);
   chassis.drive_distance(-14);
   chassis.turn_to_angle(180);
@@ -224,121 +224,55 @@ void autonStates(){
   chassis.drive_distance(-12);
   LiftClamp();
   wait(0.5, seconds);
-  chassis.drive_distance(20); // need to position on first foam tile
+  chassis.drive_distance(10); 
   Intake.stop();
-  
 
-
-
-  // 2. Put the preloaded ring on the stake
-  // Intake.spin(reverse);
-  // wait(2, seconds);
-  
-  // 3. Pick up first five rings and max out the stake
-  // Drivetrain.turnToHeading(352, degrees);
-  // a. first ring
-  // drivePID(3.5, 35);
-  // TurntoHeadingCorrection(270);
-  // b. second ring
-  // drivePID(3, 35);
-  // TurntoHeadingCorrection(180);
-  // c. third rings
-  // drivePID(4.25, 20);// pick the ring not on the line as bonus after code finished
-  // Drivetrain.setDriveVelocity(15, percent);
-  // Drivetrain.setTimeout(1, seconds);
-  // Drivetrain.drive(forward);
-  // Drivetrain.driveFor(reverse, 22, inches);
-  // TurntoHeadingCorrection(270);
-  // drivePID(1.5, 20);
-  // Drivetrain.driveFor(reverse, 10, inches);
-  
-/*
-  // 4. Use wall as reference point
-  Drivetrain.setTimeout(1500, msec);
-  Drivetrain.setDriveVelocity(20, percent);
-  Drivetrain.driveFor(forward, 10, inches);
-  wait(0.2, seconds);
-  Drivetrain.setHeading(180, degrees);
-  Drivetrain.driveFor(reverse, 5, inches);
-  */
-
-  // 3. Put mobile goal in corner
-  // Drivetrain.turnToHeading(55, degrees);
-  // Drivetrain.setDriveVelocity(100, percent);
-  // Drivetrain.setTimeout(1, seconds);
-  // Drivetrain.driveFor(reverse, 50, inches);
-  // LiftClamp();
-  // Drivetrain.driveFor(forward, 3, inches);
-  // Intake.stop();
-
-  // 4. Go to wall to reset heading
-  // Drivetrain.turnToHeading(45, degrees);
-  // Drivetrain.setDriveVelocity(20, percent);
-  // Drivetrain.driveFor(forward, 24, inches);
-  // Drivetrain.turnToHeading(0, degrees);
-  // Drivetrain.setTimeout(3, seconds);
-  // Drivetrain.driveFor(reverse, 40, inches);
-  // wait(0.2, seconds);
-  // Inertial.setHeading(0, degrees);
-  // Drivetrain.setHeading(0, degrees);
-
-  // 5. Go to corner 1 stake
-  // Drivetrain.setDriveVelocity(10, percent);
-  // Drivetrain.driveFor(forward, 21.5, inches);
-  // TurntoHeadingCorrection(90);
-  // drivePID(5.5, 20);
-  // TurntoHeadingCorrection(270);
-  // Drivetrain.setDriveVelocity(15, percent);
-  // Drivetrain.driveFor(reverse, 14, inches);
-  // wait(0.5, seconds);
-  // DropClamp();
-/*
-  // 5. Turn to pick up rings
-  TurntoHeadingCorrection(90);
+  // 8. pick up first ring partially
+  chassis.turn_to_angle(0);
   Intake.spin(reverse);
-  Drivetrain.setTimeout(10, seconds);
-  Drivetrain.driveFor(forward, 60, inches);
-  wait(2, seconds);
+  chassis.drive_distance(39);
+  // partial intake
+  Intake.stop();
 
-  // 6. Turn to go into the positive corner
-  Brain.Screen.print("The robot is turning to go into the positive corner");
-  Drivetrain.turnToHeading(325, degrees);
-  Drivetrain.setTimeout(5, seconds);
-  Drivetrain.setDriveVelocity(100, percent);
-  Drivetrain.driveFor(reverse, 50, inches);
+  // 9. pick up second ring partially by only using flywheel
+  IntakeMotorA.spin(reverse);
+  chassis.turn_to_angle(0);
+  chassis.drive_distance(45);
+
+
+  // 9. pick up mogo
+  chassis.turn_to_angle(105);
+  chassis.drive_distance(-39.5);
+  chassis.turn_to_angle(144.5);
+  chassis.drive_distance(-15);
+  DropClamp();
+  wait(0.5, seconds);
+
+  // 10. spin rings onto mogo
+  Intake.spin(reverse);
+  wait(2, seconds);
+  Intake.stop();
+
+  // 11. park mogo
+  chassis.turn_to_angle(78);
+  chassis.drive_distance(-19);
   Intake.stop();
   LiftClamp();
-  Drivetrain.driveFor(forward, 3, inches);
-
-  // 7. Go to wall as reference point
-  Drivetrain.driveFor(forward, 16, inches);
-  TurntoHeadingCorrection(0);
-  Drivetrain.setDriveVelocity(10, percent);
-  Drivetrain.setTimeout(4, seconds);
-  Drivetrain.driveFor(reverse, 14, inches);
   wait(0.5, seconds);
 
-  // 8. Go to the other side and slam the corner 3 stake in
-  drivePID(10, 30);
-  Drivetrain.turnToHeading(315, degrees);
-  drivePID(5.5, 30);
-  TurntoHeadingCorrection(250);
-  Drivetrain.setTimeout(3, seconds);
-  Drivetrain.driveFor(reverse, 100, inches);
-  wait(0.5, seconds);
-  Drivetrain.driveFor(forward, 4, inches);
-  Drivetrain.turnToHeading(225, degrees);
+  // 12. corner right blue mogo
+  chassis.drive_max_voltage = 10;
+  chassis.turn_max_voltage = 10;
+  chassis.turn_to_angle(240.5);
+  chassis.drive_distance(-30);
+  chassis.turn_to_angle(262);
+  chassis.drive_distance(-45);
 
-  // 9. Get corner 4 stake
-  Brain.Screen.print("SIGMA SIGMA SIGMA SIGMA ALERT");
-  drivePID(2.2, 20);
-  TurntoHeadingCorrection(275);
-  drivePID(15, 40); // 13 inches originally
-  Drivetrain.driveFor(reverse, 5, inches);
-  // sigmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaarizzlerrrrrrrrrrrrrrrrrrrrr
-
-  // 23 points getting all four corners and 3 pts for the preload on one of the stakes
-
+  // 13. corner left blue mogo
+  chassis.turn_to_angle(265);
+  chassis.drive_distance(61.5);
+  chassis.turn_to_angle(280);
+  chassis.drive_distance(46);
 
   //END*/
 
