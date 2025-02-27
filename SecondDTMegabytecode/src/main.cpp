@@ -169,7 +169,7 @@ void pre_auton(void) {
         Brain.Screen.printAt(5, 140, "Red Left - AWP");
         break;
       case 2:
-        Brain.Screen.printAt(5, 140, "Auton 3 - turn_test");
+        Brain.Screen.printAt(5, 140, "Left - 3 rings on mobile goal, touch ladder");
         break;
       case 3:
         Brain.Screen.printAt(5, 140, "Auton 4 - swing_test");
@@ -214,7 +214,7 @@ void autonomous(void) {
       autonRedLeftAWP();
       break;
     case 2:
-      turn_test();
+      autonRedLeft3RingsAndLadder();
       break;
     case 3:
       swing_test();

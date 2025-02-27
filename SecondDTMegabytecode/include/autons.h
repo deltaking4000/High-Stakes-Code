@@ -9,6 +9,7 @@ void default_constants();
 
 void autonPreloadOnWallstakeAndTouchLadder();
 void autonRedLeftAWP();
+void autonRedLeft3RingsAndLadder();
 void autonStates();
 
 // JAR test autons

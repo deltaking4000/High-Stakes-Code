@@ -178,9 +178,9 @@ void autonPreloadOnWallstakeAndTouchLadder(){
 
 void autonRedLeftAWP() {
   // go to wall-stake
-  chassis.drive_distance(14.661); // fwd
-  chassis.turn_to_angle(269.996); // turnTo
-  chassis.drive_distance(-2.815); // rev
+  chassis.drive_distance(18); // fwd
+  chassis.turn_to_angle(270); // turnTo
+  chassis.drive_distance(-4); 
 
   // spin preload on wallstake
   Intake.spin(reverse);
@@ -191,27 +191,58 @@ void autonRedLeftAWP() {
 
   // get mogo
   LiftClamp();
-  chassis.turn_to_angle(235.46); // turnTo
-  chassis.drive_distance(16.223); // fwd
-  chassis.turn_to_angle(56.778); // turnTo
-  chassis.drive_distance(-16.176); // rev
+  chassis.turn_to_angle(235); // turnTo
+  chassis.drive_distance(16); // fwd
+  chassis.turn_to_angle(57); // turnTo
+  chassis.drive_distance(-20); // rev
   DropClamp();
   wait(0.5, seconds);
 
   // pick up red-ring from red/blue stack
   Intake.spin(reverse);
-  chassis.turn_to_angle(194.446); // turnTo
+  chassis.turn_to_angle(195); // turnTo
   chassis.drive_distance(21.842); // fwd
 
   // pick up red-ring from stack on auton-line
-  chassis.turn_to_angle(261.803); // turnTo
-  chassis.drive_distance(14.332); // fwd
+  chassis.turn_to_angle(261); // turnTo
+  chassis.drive_distance(14.5); // fwd
 
   // prepare to go to ladder
-  chassis.turn_to_angle(269.451); // turnTo
-  chassis.drive_distance(-18.227); // rev
-  chassis.turn_to_angle(340.447); // turnTo
-  chassis.drive_distance(30.089); // fwd
+  chassis.turn_to_angle(270); // turnTo
+  chassis.drive_distance(-18); // rev
+  chassis.turn_to_angle(340); // turnTo
+  chassis.drive_distance(30); // fwd
+  Intake.stop();
+}
+
+void autonRedLeft3RingsAndLadder() {
+  //chassis.set_coordinates(0, 0, 0);
+
+  // 1. Pick up mobile goal
+  LiftClamp();
+  chassis.drive_distance(-29.5); // rev
+  DropClamp();
+  wait(0.25, seconds);
+  
+  // 2. Put preload
+  Intake.spin(reverse);
+  wait(1, seconds);
+
+  // 3. Pick up red ring from bottom of stack
+  chassis.turn_to_angle(55); // turnTo
+  chassis.drive_distance(15.975); // fwd
+  wait(0.25, seconds);
+
+  // 4. Pick up red ring from auton line
+  chassis.turn_to_angle(138.5); // turnTo
+  chassis.drive_distance(13); // fwd
+  wait(0.25, seconds);
+
+  // 5. Go to ladder
+  chassis.turn_to_angle(154); // turnTo
+  chassis.drive_distance(-20); // rev
+  chassis.turn_to_angle(222); // turnTo
+  chassis.drive_distance(35.5); // fwd
   Intake.stop();
 }
 
