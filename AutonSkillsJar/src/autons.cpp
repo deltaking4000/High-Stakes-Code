@@ -184,15 +184,19 @@ void autonStates(){
 
   // 3. Pick up rings in left corner
   chassis.turn_to_angle(270);
-  Intake.spin(reverse);  
+  Intake.spin(reverse); 
+  chassis.drive_timeout = 3000;
   chassis.drive_distance(43);
   chassis.turn_to_angle(225, 12);
   chassis.drive_distance(-14);
   chassis.turn_to_angle(180, 12);
+  chassis.drive_timeout = 2000;
   chassis.drive_distance(19.5);
 
   // 4. Put mobile goal in left corner
+  chassis.turn_timeout = 1000;
   chassis.turn_to_angle(55, 12);
+  chassis.drive_timeout = 1000;  
   chassis.drive_distance(-11);
   LiftClamp();
   wait(0.5, seconds);
@@ -200,32 +204,37 @@ void autonStates(){
   Intake.stop();
 
   // 5. Pick up second mogo
+  odom_constants();
   chassis.turn_to_angle(270);
   Brain.Screen.print( "Heading: %f", chassis.get_absolute_heading());
   Brain.Screen.newLine();
   chassis.drive_distance(-62);
   Brain.Screen.print( "Heading: %f", chassis.get_absolute_heading());
   Brain.Screen.newLine();
-  wait(0.5, seconds);
   DropClamp();
-  wait(0.5, seconds);
+  wait(250, msec);
   chassis.turn_to_angle(90);
   Intake.spin(reverse);
 
   // 6. Pick up rings in right corner
+  chassis.drive_timeout = 3000;
   chassis.drive_distance(38);
   chassis.turn_to_angle(135);
   chassis.drive_distance(-14);
   chassis.turn_to_angle(180);
+  chassis.drive_timeout = 2000;  
   chassis.drive_distance(19.5);
 
   // 7. Put mobile goal in right corner
+  chassis.turn_timeout = 1000;
   chassis.turn_to_angle(305);
+  chassis.drive_timeout = 1000;  
   chassis.drive_distance(-12);
   LiftClamp();
-  wait(0.5, seconds);
+  wait(250, msec);
   chassis.drive_distance(10); 
   Intake.stop();
+  odom_constants();
 
   // 8. pick up first ring partially
   chassis.turn_to_angle(0-1);
@@ -245,19 +254,18 @@ void autonStates(){
   chassis.turn_to_angle(144.5);
   chassis.drive_distance(-15);
   DropClamp();
-  wait(0.5, seconds);
+  wait(250, msec);
 
   // 10. Spin rings onto mobile goal
-  chassis.turn_to_angle(78);
   Intake.spin(reverse);
-  wait(2, seconds);
-  Intake.stop();
+  chassis.turn_to_angle(78);
 
   // 11. Throw third mobile goal to the side
   chassis.drive_distance(-19);
+  wait(1, seconds); // look at removing dis if the ring lands before the robot stops
   Intake.stop();
   LiftClamp();
-  wait(0.5, seconds);
+  wait(150, msec);
 
   // 12. Put corner 3 stake in the positive
   chassis.drive_max_voltage = 10;
