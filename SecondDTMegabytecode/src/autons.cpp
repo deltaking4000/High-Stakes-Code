@@ -246,6 +246,86 @@ void autonRedLeft3RingsAndLadder() {
   Intake.stop();
 }
 
+void autonBlueRight3RingsAndLadder() {
+  //chassis.set_coordinates(0, 0, 0);
+
+  // 1. Pick up mobile goal
+  LiftClamp();
+  chassis.drive_distance(-29.5); // rev
+  DropClamp();
+  wait(0.25, seconds);
+  
+  // 2. Put preload
+  Intake.spin(reverse);
+  wait(1, seconds);
+
+  // 3. Pick up red ring from bottom of stack
+  chassis.turn_to_angle(305); // turnTo
+  chassis.drive_distance(15.975); // fwd
+  wait(0.25, seconds);
+
+  // 4. Pick up red ring from auton line
+  chassis.turn_to_angle(221.5); // turnTo
+  chassis.drive_distance(13); // fwd
+  wait(0.25, seconds);
+
+  // 5. Go to ladder
+  chassis.turn_to_angle(26); // turnTo
+  chassis.drive_distance(-20); // rev
+  chassis.turn_to_angle(138); // turnTo
+  chassis.drive_distance(35.5); // fwd
+  Intake.stop();
+}
+
+void autonLeft2RingsAndLadder() {
+  //chassis.set_coordinates(0, 0, 0);
+
+  // 1. Pick up mobile goal
+  LiftClamp();
+  chassis.drive_distance(-29.5);
+  DropClamp();
+  wait(0.25, seconds);
+  
+  // 2. Put preload
+  Intake.spin(reverse);
+  wait(1, seconds);
+
+  // 3. Pick up red ring from bottom of stack
+  chassis.turn_to_angle(55);
+  chassis.drive_distance(15.975);
+  wait(0.25, seconds);
+
+  // 4. Go to ladder
+  chassis.turn_to_angle(240);
+  chassis.drive_timeout = 3000;
+  chassis.drive_distance(30);
+  Intake.stop();
+}
+
+void autonRight2RingsAndLadder() {
+  //chassis.set_coordinates(0, 0, 0);
+
+  // 1. Pick up mobile goal
+  LiftClamp();
+  chassis.drive_distance(-29.5); // rev
+  DropClamp();
+  wait(0.25, seconds);
+  
+  // 2. Put preload
+  Intake.spin(reverse);
+  wait(1, seconds);
+
+  // 3. Pick up red ring from bottom of stack
+  chassis.turn_to_angle(305); // turnTo
+  chassis.drive_distance(15.975); // fwd
+  wait(0.25, seconds);
+
+  // 4. Go to ladder
+  chassis.turn_to_angle(120);
+  chassis.drive_timeout = 3000;
+  chassis.drive_distance(30);
+  Intake.stop();}
+
 void autonStates(){
 
   //START

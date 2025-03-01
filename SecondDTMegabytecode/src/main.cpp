@@ -166,16 +166,16 @@ void pre_auton(void) {
         Brain.Screen.printAt(5, 140, "Right Field - Preload on wall stake, touch ladder");
         break;
       case 1:
-        Brain.Screen.printAt(5, 140, "Red Left - AWP");
+        Brain.Screen.printAt(5, 140, "RED LEFT - 3 rings on mobile goal, touch ladder");
         break;
       case 2:
-        Brain.Screen.printAt(5, 140, "Left - 3 rings on mobile goal, touch ladder");
+        Brain.Screen.printAt(5, 140, "BLUE RIGHT - 3 rings on mobile goal, touch ladder");
         break;
       case 3:
-        Brain.Screen.printAt(5, 140, "Auton 4 - swing_test");
+        Brain.Screen.printAt(5, 140, "LEFT (RED/BLUE) - 2 rings on mobile goal, touch ladder");
         break;
       case 4:
-        Brain.Screen.printAt(5, 140, "Auton 5 - full_test");
+        Brain.Screen.printAt(5, 140, "RIGHT (RED/BLUE) - 2 rings on mobile goal, touch ladder");
         break;
       case 5:
         Brain.Screen.printAt(5, 140, "Auton 6 - odom_test");
@@ -211,16 +211,16 @@ void autonomous(void) {
       autonPreloadOnWallstakeAndTouchLadder();
       break;
     case 1:         
-      autonRedLeftAWP();
-      break;
-    case 2:
       autonRedLeft3RingsAndLadder();
       break;
+    case 2:
+      autonBlueRight3RingsAndLadder();
+      break;
     case 3:
-      swing_test();
+      autonLeft2RingsAndLadder();
       break;
     case 4:
-      full_test();
+      autonRight2RingsAndLadder();
       break;
     case 5:
       odom_test();
