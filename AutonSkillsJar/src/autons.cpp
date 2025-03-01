@@ -35,8 +35,8 @@ void default_constants(){
 
 void odom_constants(){
   default_constants();
-  chassis.heading_max_voltage = 8;//10
-  chassis.drive_max_voltage = 4;//8
+  chassis.heading_max_voltage = 9 ;//10
+  chassis.drive_max_voltage = 5;//8
   chassis.turn_max_voltage = 8; // 12
   chassis.drive_settle_error = 3;
   chassis.boomerang_lead = .5;
@@ -186,13 +186,13 @@ void autonStates(){
   chassis.turn_to_angle(270);
   Intake.spin(reverse);  
   chassis.drive_distance(43);
-  chassis.turn_to_angle(225);
+  chassis.turn_to_angle(225, 12);
   chassis.drive_distance(-14);
-  chassis.turn_to_angle(180);
+  chassis.turn_to_angle(180, 12);
   chassis.drive_distance(19.5);
 
   // 4. Put mobile goal in left corner
-  chassis.turn_to_angle(55);
+  chassis.turn_to_angle(55, 12);
   chassis.drive_distance(-11);
   LiftClamp();
   wait(0.5, seconds);
@@ -228,7 +228,7 @@ void autonStates(){
   Intake.stop();
 
   // 8. pick up first ring partially
-  chassis.turn_to_angle(0);
+  chassis.turn_to_angle(0-1);
   Intake.spin(reverse);
   chassis.drive_distance(39);
   // partial intake
@@ -237,42 +237,44 @@ void autonStates(){
   // 9. pick up second ring partially by only using flywheel
   IntakeMotorA.spin(reverse);
   chassis.turn_to_angle(0);
-  chassis.drive_distance(45);
+  chassis.drive_distance(41);
 
-
-  // 9. pick up mogo
+  // 9. Pick up mobile goal
   chassis.turn_to_angle(105);
-  chassis.drive_distance(-39.5);
+  chassis.drive_distance(-43.5);
   chassis.turn_to_angle(144.5);
   chassis.drive_distance(-15);
   DropClamp();
   wait(0.5, seconds);
 
-  // 10. spin rings onto mogo
+  // 10. Spin rings onto mobile goal
+  chassis.turn_to_angle(78);
   Intake.spin(reverse);
   wait(2, seconds);
   Intake.stop();
 
-  // 11. park mogo
-  chassis.turn_to_angle(78);
+  // 11. Throw third mobile goal to the side
   chassis.drive_distance(-19);
   Intake.stop();
   LiftClamp();
   wait(0.5, seconds);
 
-  // 12. corner right blue mogo
+  // 12. Put corner 3 stake in the positive
   chassis.drive_max_voltage = 10;
   chassis.turn_max_voltage = 10;
-  chassis.turn_to_angle(240.5);
-  chassis.drive_distance(-30);
+  chassis.turn_to_angle(240);
+  chassis.drive_distance(-34);
   chassis.turn_to_angle(262);
-  chassis.drive_distance(-45);
+  chassis.drive_timeout = 3000;
+  chassis.drive_distance(-50);
 
-  // 13. corner left blue mogo
-  chassis.turn_to_angle(265);
-  chassis.drive_distance(61.5);
-  chassis.turn_to_angle(280);
-  chassis.drive_distance(46);
+  // 13. Put corner 4 stake in the positive
+  chassis.turn_to_angle(235);
+  chassis.drive_distance(27);
+  chassis.turn_to_angle(100);
+  chassis.drive_timeout = 5000;
+  chassis.drive_distance(-100);
+  Brain.Screen.print("Sigma or Skibidi?");
 
   //END*/
 
