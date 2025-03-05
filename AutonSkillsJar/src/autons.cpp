@@ -271,17 +271,17 @@ void autonStates(){
   chassis.drive_max_voltage = 10;
   chassis.turn_max_voltage = 10;
   chassis.turn_to_angle(240);
-  chassis.drive_distance(-34);
+  chassis.drive_distance(-35);
   chassis.turn_to_angle(262);
   chassis.drive_timeout = 3000;
-  chassis.drive_distance(-50);
+  chassis.drive_distance(-48);
 
   // 13. Put corner 4 stake in the positive
   chassis.turn_to_angle(235);
   chassis.drive_distance(27);
-  chassis.turn_to_angle(100);
+  chassis.turn_to_angle(105);
   chassis.drive_timeout = 5000;
-  chassis.drive_distance(-100);
+  chassis.drive_distance(-200);
   Brain.Screen.print("Sigma or Skibidi?");
 
   //END*/

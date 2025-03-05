@@ -269,12 +269,12 @@ void autonBlueRight3RingsAndLadder() {
   chassis.drive_distance(13); // fwd
   wait(0.25, seconds);
 
-  // 5. Go to ladder
+  /* 5. Go to ladder
   chassis.turn_to_angle(26); // turnTo
   chassis.drive_distance(-20); // rev
   chassis.turn_to_angle(138); // turnTo
   chassis.drive_distance(35.5); // fwd
-  Intake.stop();
+  Intake.stop();*/
 }
 
 void autonLeft2RingsAndLadder() {

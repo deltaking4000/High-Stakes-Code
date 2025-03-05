@@ -131,7 +131,7 @@ Drive chassis(
 
 );
 
-int current_auton_selection = 1;
+int current_auton_selection = 2 ;
 bool auto_started = false;
 
 /**
