@@ -223,6 +223,7 @@ void buttonR1Pressed() {
     static bool bR1ButtonState = false;
     if( !bR1ButtonState ) {
       bR1ButtonState = true;
+      StartColorSorting();
       Intake.spin(reverse);
       Brain.Screen.print("intake started...");
       Brain.Screen.newLine();
@@ -230,6 +231,7 @@ void buttonR1Pressed() {
     else {
       bR1ButtonState = false;
       Intake.stop();
+      StopColorSorting();
   }
 }
 
@@ -297,12 +299,10 @@ int main() {
   Controller1.ButtonL2.pressed(buttonL2Pressed);
 
   // Run detected when the Optical Sensor detects an object.
- // Optical.setLightPower(100, percent);
-  //Optical.setLight(ledState::on);
-  //Optical.integrationTime(100);
-  //Optical.objectDetected(OpticalObjectDetected);
-
-  
+  Optical.setLightPower(100, percent);
+  Optical.setLight(ledState::on);
+  Optical.integrationTime(200);
+  Optical.objectDetected(OpticalObjectDetected);
 
   // Run the pre-autonomous function.
   pre_auton();

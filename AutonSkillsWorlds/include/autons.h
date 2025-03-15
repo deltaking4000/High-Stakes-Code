@@ -22,3 +22,8 @@ void auton_debug();
 // callback for optical
 void OpticalObjectDetected();
 
+// Color sorting start/stop
+void StartColorSorting();
+void StopColorSorting();
+
+

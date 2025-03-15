@@ -54,6 +54,84 @@ void DropClamp(){
   //Brain.Screen.print("The clamp has been placed down");
 }
 
+
+//////////////////////////////////
+// color sorting
+
+bool colorSortingEnabled = false;
+bool allianceIsRed = true;
+
+void OpticalObjectDetected() {
+
+  if (colorSortingEnabled == false){
+    return;
+  }
+
+  // The Brain will print that the Optical Sensor detected
+  // an object to the Brain's screen.
+  Brain.Screen.setCursor(1, 1);
+  Brain.Screen.clearScreen();
+  Brain.Screen.print("object detected");
+  Brain.Screen.newLine();
+
+  // Set a variable, detectColor, to the color detected by the
+  // Optical Sensor.
+  //color detectColor = Optical.color();
+  double hue = Optical.hue();
+
+  // Print the color detected by the Optical Sensor
+  // to the Brain's screen.
+  Brain.Screen.print(hue);
+  Brain.Screen.newLine();
+
+  //vex::color ringColor = allianceColor.rgb();
+  bool tossRing = false;
+
+
+  if (hue < 30 || hue > 300){
+    Brain.Screen.print("The color is red");
+    //ringColor = vex::color::red.rgb();
+    if (!allianceIsRed) {
+      tossRing = true;
+    }
+  } 
+  else if (hue > 170 && hue < 300){
+    Brain.Screen.print("The color is blue");
+    //ringColor = vex::color::blue.rgb();
+    if (allianceIsRed) {
+      tossRing = true;
+    }
+  }
+  else {
+    Brain.Screen.print("It is not red or blue");
+  }
+
+  // toss if we dont want this ring 
+  if (tossRing){
+
+    wait(250, msec);
+    Intake.stop();
+    
+    // restart intake
+    wait(500, msec);
+    Intake.spin(reverse);
+  }
+}
+
+void StartColorSorting(){
+  colorSortingEnabled = true;
+  Brain.Screen.print("starting color sorting");
+  Brain.Screen.newLine();
+}
+
+void StopColorSorting(){
+  //Optical.setLight(ledState::off);
+  colorSortingEnabled = false;
+  Brain.Screen.print("stopping color sorting");
+  Brain.Screen.newLine();
+
+}
+
 //////////////////////////
 /**
  * The expected behavior is to return to the start position.
@@ -317,45 +395,6 @@ void TakeTopRingInStack() {
 
 // Define the detected function with a void return type,
 // showing it doesn't return a value.
-void OpticalObjectDetected() {
-
-  // The Brain will print that the Optical Sensor detected
-  // an object to the Brain's screen.
-  Brain.Screen.setCursor(1, 1);
-  Brain.Screen.clearScreen();
-  Brain.Screen.print("object detected");
-  Brain.Screen.newLine();
-
-  // Set a variable, detectColor, to the color detected by the
-  // Optical Sensor.
-  color detectColor = Optical.color();
-  double hue = Optical.hue();
-  
-  
-
-  // Print the color detected by the Optical Sensor
-  // to the Brain's screen.
-  Brain.Screen.print(hue);
-  Brain.Screen.newLine();
-  if (hue < 30 || hue > 300){
-    Brain.Screen.print("The color is red");
-    
-  } 
-
-   else if (hue > 170 && hue < 300){
-    Brain.Screen.print("The color is blue");
-    Intake.spin(forward);
-    wait(1, seconds);
-    Intake.spin(reverse);
-
-  }
-
-  else {
-    Brain.Screen.print("It is not red or blue");
-
-  }
-}
-
 
 
 void auton_debug(){
@@ -380,73 +419,5 @@ chassis.drive_to_pose(-23.963, 24.046, 46.313);
 chassis.drive_to_pose(-0.166, 58.826, 45);
 chassis.drive_to_pose(23.464, 47.094, 145.222);
 Intake.stop();
-
-
-
-
-
-
-
-}
-
-
-
-
-
-
-void old_auton_debug(){
-
-  //START
-
-  Brain.Screen.clearScreen();
-
-
-// Set a variable, hue, to the value of the hue detected
-// by the Optical Sensor.
-double hue = Optical.hue();
-
-// Set a variable, detectColor, to the color detected by the
-// Optical Sensor.
-color detectColor = Optical.color();
-
-// Print the color detected by the Optical Sensor
-// to the Brain's screen.
-Brain.Screen.print(detectColor);
-
-// Turn on LED with previous intensity.
-Optical.setLight(ledState::on);
-
-// Set the light power to 50 percent.
-Optical.setLightPower(50, percent);
-
-// If an object is detected yb the Optical Sensor, print
-// "near object".
-if (Optical.isNearObject()){
-  Brain.Screen.print("near object");
-}
-
-
-
-  Brain.Screen.print("auton_debug running");
-  Brain.Screen.newLine();
-
-  Drive& Drivetrain = chassis;
-  
-  odom_constants();
-  chassis.set_coordinates(0, 0, 0);
-  Drivetrain.drive_to_pose(24, 24, 270);
-
-  // chassis.turn_to_point(24, 24);
-  // chassis.drive_to_point(24,24);
-  // chassis.drive_to_point(0,0);
-  // chassis.turn_to_angle(0);
-
-
-
-  //TakeTopRingInStack();
-
-  Brain.Screen.print("drive_stop");
-  Brain.Screen.newLine();
-  chassis.drive_stop(brakeType::hold);
 
 }
