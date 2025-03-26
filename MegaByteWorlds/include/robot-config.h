@@ -14,7 +14,9 @@ extern controller Controller1;
 extern motor IntakeMotorA; 
 extern motor IntakeMotorB; 
 extern motor_group Intake;
+extern motor Ladybrown;
 extern digital_out Clamp;
+extern digital_out Doinker;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

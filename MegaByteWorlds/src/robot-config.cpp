@@ -34,11 +34,20 @@ controller Controller1 = controller(primary);
 
 //Intake programming
 motor IntakeMotorA = motor(PORT6, ratio18_1, false);
-motor IntakeMotorB = motor(PORT7, ratio18_1, false);
+motor IntakeMotorB = motor(PORT7, ratio6_1, false);
 motor_group Intake = motor_group(IntakeMotorA, IntakeMotorB);
 
-// Pneumatics
+// Ladybrown
+motor Ladybrown = motor(PORT2, ratio18_1, false);
+
+// PNEUMATICS //
+
+// Clamp
 digital_out Clamp = digital_out(Brain.ThreeWirePort.H);
+
+// Doinker
+digital_out Doinker = digital_out(Brain.ThreeWirePort.A);
+
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable

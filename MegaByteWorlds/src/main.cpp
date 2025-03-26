@@ -150,6 +150,10 @@ void pre_auton(void) {
   RightMotorFront.resetPosition();
   RightMotorBackBottom.resetPosition();
   RightMotorBackTop.resetPosition();
+  Ladybrown.resetPosition();
+  Ladybrown.setVelocity(100, percent);
+  Ladybrown.setMaxTorque(100, percent);
+  Ladybrown.setStopping(hold);
 
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
@@ -285,6 +289,35 @@ void buttonL2Pressed() {
   Brain.Screen.newLine();
 }
 
+void buttonDownPressed(){
+  
+  Ladybrown.spinToPosition(0, degrees);
+
+}
+
+void buttonRightPressed(){
+  Ladybrown.spinToPosition(110, degrees);
+
+}
+
+void buttonUpPressed(){
+  Ladybrown.spinToPosition(700, degrees);
+  
+}
+
+void buttonYPressed() {
+  Doinker.set(false);
+  Brain.Screen.print("Doinker false...");
+  Brain.Screen.newLine();
+}
+
+void buttonXPressed() {
+  Doinker.set(true);
+  Brain.Screen.print("Doinker true...");
+  Brain.Screen.newLine();
+}
+
+
 
 void usercontrol(void) {
   // User control code here, inside the loop
@@ -303,6 +336,11 @@ int main() {
   Controller1.ButtonR2.pressed(buttonR2Pressed);
   Controller1.ButtonL1.pressed(buttonL1Pressed);
   Controller1.ButtonL2.pressed(buttonL2Pressed);
+  Controller1.ButtonDown.pressed(buttonDownPressed); //rest
+  Controller1.ButtonRight.pressed(buttonRightPressed); //load
+  Controller1.ButtonUp.pressed(buttonUpPressed); //place
+  Controller1.ButtonX.pressed(buttonXPressed);
+  Controller1.ButtonY.pressed(buttonYPressed);
 
   // Run the pre-autonomous function.
   pre_auton();
