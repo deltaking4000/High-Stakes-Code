@@ -17,16 +17,26 @@ motor RightMotorFront = motor(PORT10, ratio6_1, false);
 motor RightMotorBackBottom = motor(PORT16, ratio6_1, false);
 motor RightMotorBackTop = motor(PORT18, ratio6_1, true);
 
+
 // Controller
 controller Controller1 = controller(primary);
 
 //Intake programming
 motor IntakeMotorA = motor(PORT6, ratio18_1, false);
-motor IntakeMotorB = motor(PORT7, ratio18_1, false);
+motor IntakeMotorB = motor(PORT7, ratio6_1, false);
 motor_group Intake = motor_group(IntakeMotorA, IntakeMotorB);
 
-// Pneumatics
+// Ladybrown
+motor Ladybrown = motor(PORT2, ratio18_1, false);
+
+// PNEUMATICS //
+
+// Clamp
 digital_out Clamp = digital_out(Brain.ThreeWirePort.H);
+
+// Doinker
+digital_out Doinker = digital_out(Brain.ThreeWirePort.A);
+
 
 // Optical Sensor
 optical Optical = optical(PORT3);
