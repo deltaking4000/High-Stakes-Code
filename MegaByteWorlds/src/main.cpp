@@ -79,7 +79,7 @@ Drive chassis(
   PORT9,
 
   //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
-  3.25,
+  3.25 / (20.0/19.0), // 20/19 is the error scaling since robot is driving 19 inches instead of 20
 
   //External ratio, must be in decimal, in the format of input teeth/output teeth.
   //If your motor has an 84-tooth gear and your wheel has a 60-tooth gear, this value will be 1.4.
@@ -113,12 +113,12 @@ Drive chassis(
   3,
 
   //Input the Forward Tracker diameter (reverse it to make the direction switch):
-  2.75,
+  3.25,
 
   //Input Forward Tracker center distance (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
   //For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
   //This distance is in inches:
-  6,
+  5.5,
 
   //Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
   1,
@@ -147,9 +147,14 @@ void pre_auton(void) {
   default_constants();
   chassis.Gyro.calibrate(3);
   Intake.setVelocity(100, percent);
+  LeftMotorFront.resetPosition();
+  LeftMotorBackBottom.resetPosition();
+  LeftMotorBackTop.resetPosition();
   RightMotorFront.resetPosition();
   RightMotorBackBottom.resetPosition();
   RightMotorBackTop.resetPosition();
+  chassis.DriveL.setPosition(0, degrees);
+  chassis.DriveR.setPosition(0, degrees);
   Ladybrown.resetPosition();
   Ladybrown.setVelocity(100, percent);
   Ladybrown.setMaxTorque(100, percent);
