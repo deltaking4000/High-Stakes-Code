@@ -134,6 +134,27 @@ Drive chassis(
 int current_auton_selection = 7 ;
 bool auto_started = false;
 
+// from https://www.vexforum.com/t/sd-card-help/50499/2
+const char* filename = "autonsel.bin";
+
+void load_auton_selection() {  
+  if (Brain.SDcard.isInserted() && Brain.SDcard.exists(filename)) {
+    int file_auton_selection = current_auton_selection;
+    int nRead = Brain.SDcard.loadfile(filename, (uint8_t*)&file_auton_selection, sizeof(file_auton_selection));
+    if (nRead == sizeof(file_auton_selection)) {
+      if (file_auton_selection >=0 && file_auton_selection <= 7) {
+        current_auton_selection = file_auton_selection;
+      }
+    }
+  }
+}
+
+void save_auton_selection() {
+  if (Brain.SDcard.isInserted()) {
+    Brain.SDcard.savefile(filename, (uint8_t*) &current_auton_selection, sizeof(current_auton_selection));
+  }
+}
+
 /**
  * Function before autonomous. It prints the current auton number on the screen
  * and tapping the screen cycles the selected auton by 1. Add anything else you
@@ -159,6 +180,8 @@ void pre_auton(void) {
   Ladybrown.setVelocity(100, percent);
   Ladybrown.setMaxTorque(100, percent);
   Ladybrown.setStopping(hold);
+
+  load_auton_selection();
 
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
@@ -196,9 +219,18 @@ void pre_auton(void) {
         Brain.Screen.printAt(5, 140, "Auton 8 - auton_debug");
         break;
     }
+  
+    if (!Brain.SDcard.isInserted()) {
+        Brain.Screen.printAt(5, 160, "NO SDCARD");
+    }
+
     if(Brain.Screen.pressing()){
       while(Brain.Screen.pressing()) {}
       current_auton_selection ++;
+      if (current_auton_selection == 8){
+        current_auton_selection = 0;
+      }
+      save_auton_selection();
     } else if (current_auton_selection == 8){
       current_auton_selection = 0;
     }
