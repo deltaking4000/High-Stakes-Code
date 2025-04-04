@@ -58,6 +58,7 @@ bool RemoteControlCodeEnabled = true;
 // define variables used for controlling motors based on controller inputs
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
+bool Controller1UpDownButtonsControlMotorsStopped = true;
 
 // define a task that will handle monitoring inputs from Controller1
 int rc_auto_loop_function_Controller1() {
@@ -107,6 +108,19 @@ int rc_auto_loop_function_Controller1() {
       if (DrivetrainRNeedsToBeStopped_Controller1) {
         RightDriveSmart.setVelocity(drivetrainRightSideSpeed, percent);
         RightDriveSmart.spin(forward);
+      }
+
+      // check the ButtonUp/ButtonDown status to control Ladybrown when B is also pressed
+      if (Controller1.ButtonUp.pressing() && Controller1.ButtonB.pressing()) {
+        Ladybrown.spin(forward, 6, volt);
+        Controller1UpDownButtonsControlMotorsStopped = false;
+      } else if (Controller1.ButtonDown.pressing() && Controller1.ButtonB.pressing()) {
+        Ladybrown.spin(reverse, 6, volt);
+        Controller1UpDownButtonsControlMotorsStopped = false;
+      } else if (!Controller1UpDownButtonsControlMotorsStopped) {
+        Ladybrown.stop();
+        // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
+        Controller1UpDownButtonsControlMotorsStopped = true;
       }
     }
     // wait before repeating the process

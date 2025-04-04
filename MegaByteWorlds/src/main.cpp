@@ -295,19 +295,25 @@ void buttonL2Pressed() {
 }
 
 void buttonDownPressed(){
-  
-  Ladybrown.spinToPosition(0, degrees);
-
+  if (Controller1.ButtonB.pressing()) {
+    // checked in rc_auto_loop_function_Controller1
+    //Ladybrown.spinFor(reverse, 5, degrees, false);
+  } else {
+    Ladybrown.spinToPosition(0, degrees);
+  }
 }
 
 void buttonRightPressed(){
   Ladybrown.spinToPosition(110, degrees);
-
 }
 
 void buttonUpPressed(){
-  Ladybrown.spinToPosition(700, degrees);
-  
+  if (Controller1.ButtonB.pressing()) {
+    // checked in rc_auto_loop_function_Controller1
+    //Ladybrown.spinFor(forward, 5, degrees, false);
+  } else {
+    Ladybrown.spinToPosition(700, degrees);
+  }
 }
 
 void buttonYPressed() {
@@ -323,16 +329,20 @@ void buttonXPressed() {
 }
 
 void buttonAPressed() {
-  StartColorSorting();
-  Controller1.rumble(rumblePulse); 
-  Controller1.Screen.print(" Colorsorting ON...");
-  Controller1.Screen.newLine();
-}
-
-void buttonBPressed() {
-  StopColorSorting();
-  Controller1.Screen.print(" Colorsorting OFF...");
-  Controller1.Screen.newLine();
+    static bool bButtonAState = false;
+    if( !bButtonAState ) {
+      bButtonAState = true;
+      StartColorSorting();
+      Controller1.rumble(".."); 
+      Controller1.Screen.setCursor(1, 1);
+      Controller1.Screen.print(" Colorsorting ON...");
+    }
+    else {
+      bButtonAState = false;
+      StopColorSorting();
+      Controller1.Screen.setCursor(1, 1);
+      Controller1.Screen.print(" Colorsorting OFF...");
+  }
 }
 
 void usercontrol(void) {
@@ -358,7 +368,7 @@ int main() {
   Controller1.ButtonX.pressed(buttonXPressed);
   Controller1.ButtonY.pressed(buttonYPressed);
   Controller1.ButtonA.pressed(buttonAPressed);
-  Controller1.ButtonB.pressed(buttonBPressed);
+  //Controller1.ButtonB.pressed(buttonBPressed); // checked in rc_auto_loop_function_Controller1
 
   // Run detected when the Optical Sensor detects an object.
   Optical.setLightPower(100, percent);
