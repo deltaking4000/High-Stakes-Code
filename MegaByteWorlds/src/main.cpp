@@ -187,6 +187,7 @@ void pre_auton(void) {
   // Example: clearing encoders, setting servo positions, ...
   while(!auto_started){
     Brain.Screen.clearScreen();
+    Brain.Screen.setPenColor(white);
     Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
     Brain.Screen.printAt(5, 40, "Battery Percentage:");
     Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
@@ -195,25 +196,32 @@ void pre_auton(void) {
     Brain.Screen.printAt(5, 120, "Selected Auton:");
     switch(current_auton_selection){
       case 0:
-        Brain.Screen.printAt(5, 140, "Right Field - Preload on wall stake, touch ladder");
+        Brain.Screen.setPenColor(red);
+        Brain.Screen.printAt(5, 140, "RED LEFT WORLDS AWP");
         break;
       case 1:
+        Brain.Screen.setPenColor(red);
         Brain.Screen.printAt(5, 140, "RED LEFT - 3 rings on mobile goal, touch ladder");
         break;
       case 2:
+        Brain.Screen.setPenColor(blue);
         Brain.Screen.printAt(5, 140, "BLUE RIGHT - 3 rings on mobile goal, touch ladder");
         break;
       case 3:
-        Brain.Screen.printAt(5, 140, "LEFT (RED/BLUE) - 2 rings on mobile goal, touch ladder");
+        Brain.Screen.setPenColor(red);
+        Brain.Screen.printAt(5, 140, "LEFT RED - 2 rings on mobile goal, touch ladder");
         break;
       case 4:
-        Brain.Screen.printAt(5, 140, "RIGHT (RED/BLUE) - 2 rings on mobile goal, touch ladder");
+        Brain.Screen.setPenColor(red);
+        Brain.Screen.printAt(5, 140, "RIGHT RED - 2 rings on mobile goal, touch ladder");
         break;
       case 5:
-        Brain.Screen.printAt(5, 140, "Auton 6 - odom_test");
+        Brain.Screen.setPenColor(blue);
+        Brain.Screen.printAt(5, 140, "RIGHT BLUE - 2 rings on mobile goal, touch ladder");        
         break;
       case 6:
-        Brain.Screen.printAt(5, 140, "Auton 7 - tank_odom_test");
+        Brain.Screen.setPenColor(blue);
+        Brain.Screen.printAt(5, 140, "LEFT BLUE) - 2 rings on mobile goal, touch ladder");
         break;
       case 7:
         Brain.Screen.printAt(5, 140, "Auton 8 - auton_debug");
@@ -249,25 +257,32 @@ void autonomous(void) {
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
+      allianceIsRed = true;
       autonPreloadOnWallstakeAndTouchLadder();
       break;
-    case 1:         
+    case 1:
+      allianceIsRed = true;
       autonRedLeft3RingsAndLadder();
       break;
     case 2:
+      allianceIsRed = false;
       autonBlueRight3RingsAndLadder();
       break;
     case 3:
+      allianceIsRed = true;
       autonLeft2RingsAndLadder();
       break;
     case 4:
+      allianceIsRed = true;
       autonRight2RingsAndLadder();
       break;
     case 5:
-      odom_test();
+      allianceIsRed = false;
+      autonLeft2RingsAndLadder();
       break;
     case 6:
-      tank_odom_test();
+      allianceIsRed = false;
+      autonRight2RingsAndLadder();
       break;
     case 7:
       auton_debug();

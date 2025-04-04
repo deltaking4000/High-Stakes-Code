@@ -31,4 +31,5 @@ void OpticalObjectDetected();
 // Color sorting start/stop
 void StartColorSorting();
 void StopColorSorting();
+extern bool allianceIsRed;
 
