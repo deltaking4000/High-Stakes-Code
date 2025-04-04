@@ -17,6 +17,8 @@ extern motor_group Intake;
 extern motor Ladybrown;
 extern digital_out Clamp;
 extern digital_out Doinker;
+extern optical Optical;
+
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

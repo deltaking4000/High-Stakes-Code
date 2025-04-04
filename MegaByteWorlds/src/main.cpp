@@ -317,7 +317,18 @@ void buttonXPressed() {
   Brain.Screen.newLine();
 }
 
+void buttonAPressed() {
+  StartColorSorting();
+  Controller1.rumble(rumblePulse); 
+  Controller1.Screen.print(" Colorsorting ON...");
+  Controller1.Screen.newLine();
+}
 
+void buttonBPressed() {
+  StopColorSorting();
+  Controller1.Screen.print(" Colorsorting OFF...");
+  Controller1.Screen.newLine();
+}
 
 void usercontrol(void) {
   // User control code here, inside the loop
@@ -341,6 +352,14 @@ int main() {
   Controller1.ButtonUp.pressed(buttonUpPressed); //place
   Controller1.ButtonX.pressed(buttonXPressed);
   Controller1.ButtonY.pressed(buttonYPressed);
+  Controller1.ButtonA.pressed(buttonAPressed);
+  Controller1.ButtonB.pressed(buttonBPressed);
+
+  // Run detected when the Optical Sensor detects an object.
+  Optical.setLightPower(100, percent);
+  Optical.setLight(ledState::on);
+  Optical.integrationTime(200);
+  Optical.objectDetected(OpticalObjectDetected);
 
   // Run the pre-autonomous function.
   pre_auton();

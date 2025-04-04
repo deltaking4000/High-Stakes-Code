@@ -48,6 +48,9 @@ digital_out Clamp = digital_out(Brain.ThreeWirePort.H);
 // Doinker
 digital_out Doinker = digital_out(Brain.ThreeWirePort.A);
 
+// Optical Sensor
+optical Optical = optical(PORT19);
+
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable

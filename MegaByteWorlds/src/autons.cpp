@@ -53,7 +53,85 @@ void DropClamp(){
   //Brain.Screen.print("The clamp has been placed down");
 }
 
+//////////////////////////////////
+// color sorting
+
+bool colorSortingEnabled = false;
+bool allianceIsRed = true;
+
+void OpticalObjectDetected() {
+
+  if (colorSortingEnabled == false){
+    return;
+  }
+
+  // The Brain will print that the Optical Sensor detected
+  // an object to the Brain's screen.
+  Brain.Screen.setCursor(1, 1);
+  Brain.Screen.clearScreen();
+  Brain.Screen.print("object detected");
+  Brain.Screen.newLine();
+
+  // Set a variable, detectColor, to the color detected by the
+  // Optical Sensor.
+  //color detectColor = Optical.color();
+  double hue = Optical.hue();
+
+  // Print the color detected by the Optical Sensor
+  // to the Brain's screen.
+  Brain.Screen.print(hue);
+  Brain.Screen.newLine();
+
+  //vex::color ringColor = allianceColor.rgb();
+  bool tossRing = false;
+
+
+  if (hue < 30 || hue > 300){
+    Brain.Screen.print("The color is red");
+    //ringColor = vex::color::red.rgb();
+    if (!allianceIsRed) {
+      tossRing = true;
+    }
+  } 
+  else if (hue > 170 && hue < 300){
+    Brain.Screen.print("The color is blue");
+    //ringColor = vex::color::blue.rgb();
+    if (allianceIsRed) {
+      tossRing = true;
+    }
+  }
+  else {
+    Brain.Screen.print("It is not red or blue");
+  }
+
+  // toss if we dont want this ring 
+  if (tossRing){
+    wait(225, msec);
+    Intake.stop();
+
+    // restart intake
+    wait(500, msec);
+    Intake.spin(reverse);
+  }
+}
+
+void StartColorSorting(){
+  colorSortingEnabled = true;
+  Brain.Screen.print("starting color sorting");
+  Brain.Screen.newLine();
+}
+
+void StopColorSorting(){
+  //Optical.setLight(ledState::off);
+  colorSortingEnabled = false;
+  Brain.Screen.print("stopping color sorting");
+  Brain.Screen.newLine();
+
+}
+
 //////////////////////////
+
+
 /**
  * The expected behavior is to return to the start position.
  */
@@ -150,30 +228,25 @@ void holonomic_odom_test(){
 }
 
 void autonPreloadOnWallstakeAndTouchLadder(){
-  Intake.setVelocity(100, percent);
+  
+  // Path
+// Path
 
-  //START
+chassis.drive_distance(39.557);
 
-  // 1. Drive towards the alliance wall stake
-  Drivetrain.setDriveVelocity(20, percent);
-  Drivetrain.setTurnVelocity(100, percent);
-  Intake.setVelocity(100, percent);
-  Drivetrain.driveFor(reverse, 9, inches);
+chassis.drive_distance(22.78);
 
-  // 2. Put the preloaded ring on the stake
-  Intake.spin(reverse);
-  wait(2, seconds);
-  Intake.stop();
+chassis.drive_distance(-17.311);
 
-  // 3. Turn to face ladder
-  Drivetrain.driveFor(forward, 6, inches);
-  Drivetrain.setTimeout(2, seconds);
-  Drivetrain.turnFor(left, 60, degrees);
+chassis.drive_distance(-59.29);
 
-  // 4. Drive to ladder
-  Drivetrain.driveFor(forward, 34, inches);
+chassis.drive_distance(-32.585);
 
-  //END
+chassis.drive_distance(17.311);
+
+
+
+
 }
 
 void autonRedLeftAWP() {
