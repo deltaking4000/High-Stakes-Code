@@ -17,6 +17,7 @@ extern motor_group Intake;
 extern motor Ladybrown;
 extern digital_out Clamp;
 extern digital_out Doinker;
+extern digital_out DoinkerJoint;
 extern optical Optical;
 
 

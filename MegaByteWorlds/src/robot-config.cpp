@@ -34,7 +34,7 @@ controller Controller1 = controller(primary);
 
 //Intake programming
 motor IntakeMotorA = motor(PORT6, ratio18_1, false);
-motor IntakeMotorB = motor(PORT7, ratio6_1, false);
+motor IntakeMotorB = motor(PORT5, ratio6_1, false);
 motor_group Intake = motor_group(IntakeMotorA, IntakeMotorB);
 
 // Ladybrown
@@ -47,6 +47,9 @@ digital_out Clamp = digital_out(Brain.ThreeWirePort.H);
 
 // Doinker
 digital_out Doinker = digital_out(Brain.ThreeWirePort.A);
+
+// DoinkerJoint
+digital_out DoinkerJoint = digital_out(Brain.ThreeWirePort.E);
 
 // Optical Sensor
 optical Optical = optical(PORT19);

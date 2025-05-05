@@ -131,7 +131,7 @@ Drive chassis(
 
 );
 
-int current_auton_selection = 7 ;
+int current_auton_selection = 1;
 bool auto_started = false;
 
 // from https://www.vexforum.com/t/sd-card-help/50499/2
@@ -168,6 +168,7 @@ void pre_auton(void) {
   default_constants();
   chassis.Gyro.calibrate(3);
   Intake.setVelocity(100, percent);
+  IntakeMotorB.setVelocity(70, percent);
   LeftMotorFront.resetPosition();
   LeftMotorBackBottom.resetPosition();
   LeftMotorBackTop.resetPosition();
@@ -227,6 +228,7 @@ void pre_auton(void) {
         Brain.Screen.printAt(5, 140, "Auton 8 - auton_debug");
         break;
     }
+  //  Brain.Screen.printAt(5, 140, "%f", Ladybrown.position(degrees));
   
     if (!Brain.SDcard.isInserted()) {
         Brain.Screen.printAt(5, 160, "NO SDCARD");
@@ -351,7 +353,7 @@ void buttonDownPressed(){
 }
 
 void buttonRightPressed(){
-  Ladybrown.spinToPosition(110, degrees);
+  Ladybrown.spinToPosition(176, degrees);
 }
 
 void buttonUpPressed(){
@@ -392,6 +394,22 @@ void buttonAPressed() {
   }
 }
 
+
+void buttonBPressed() {
+  static bool bButtonBState = false;
+  if( !bButtonBState ) {
+    bButtonBState = true;
+    DoinkerJoint.set(true);
+  }
+  else {
+    bButtonBState = false;
+    DoinkerJoint.set(false);
+  }
+}
+
+
+
+
 void usercontrol(void) {
   // User control code here, inside the loop
       // Sets velocity for the intake and the drivetrain
@@ -431,3 +449,4 @@ int main() {
     wait(100, msec);
   }
 }
+

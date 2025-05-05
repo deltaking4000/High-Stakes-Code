@@ -289,8 +289,45 @@ void autonRedLeftAWP() {
 }
 
 void autonRedLeft3RingsAndLadder() {
-  //chassis.set_coordinates(0, 0, 0);
 
+    allianceIsRed = true;
+  StartColorSorting();
+  default_constants();
+
+  chassis.set_coordinates(0, 0, 0);
+
+  // Path.tomio
+// 1. Preload
+LiftClamp();
+chassis.drive_distance(11); // rev
+Ladybrown.spinToPosition(500, degrees);
+wait(0.5, seconds);
+
+
+// 2. Mogo and 1st ring
+//chassis.turn_to_angle(348.3); // turnTo
+chassis.drive_distance(-39.5); // fwd
+DropClamp();  
+Intake.spin(reverse);
+chassis.turn_to_angle(112); // turnTo
+chassis.drive_distance(23); // rev
+wait(0.5, seconds);
+chassis.drive_distance(-3);
+
+// 3. 2nd, 3rd ring and ladder
+chassis.turn_to_angle(190); // turnTo
+chassis.drive_distance(11.5); // fwd
+chassis.drive_distance(-5);
+chassis.turn_to_angle(144); // turnTo
+chassis.drive_distance(-40); // rev
+Ladybrown.spinTo(800, degrees);
+chassis.turn_to_angle(193); // turnTo
+Intake.stop();
+chassis.drive_distance(4);
+
+
+
+/*
   // 1. Pick up mobile goal
   LiftClamp();
   chassis.drive_distance(-29.5); // rev
@@ -299,11 +336,11 @@ void autonRedLeft3RingsAndLadder() {
   
   // 2. Put preload
   Intake.spin(reverse);
-  wait(1, seconds);
+  wait(1, seconds); 
 
   // 3. Pick up red ring from bottom of stack
   chassis.turn_to_angle(55); // turnTo
-  chassis.drive_distance(15.975); // fwd
+  chassis.drive_distance(16); // fwd
   wait(0.25, seconds);
 
   // 4. Pick up red ring from auton line
@@ -315,13 +352,48 @@ void autonRedLeft3RingsAndLadder() {
   chassis.turn_to_angle(154); // turnTo
   chassis.drive_distance(-20); // rev
   chassis.turn_to_angle(222); // turnTo
-  chassis.drive_distance(35.5); // fwd
   Intake.stop();
+  chassis.drive_distance(35.5); // fwd*/
 }
 
 void autonBlueRight3RingsAndLadder() {
-  //chassis.set_coordinates(0, 0, 0);
+  allianceIsRed = false;
+  StartColorSorting();
+  default_constants();
 
+  chassis.set_coordinates(0, 0, 0);
+
+  // Path.tomio
+// 1. Preload
+LiftClamp();
+chassis.drive_distance(11); // rev
+Ladybrown.spinToPosition(500, degrees);
+wait(0.5, seconds);
+
+
+// 2. Mogo and 1st ring
+//chassis.turn_to_angle(348.3); // turnTo
+chassis.drive_distance(-39.5); // fwd
+DropClamp();  
+Intake.spin(reverse);
+chassis.turn_to_angle(234.5); // turnTo
+chassis.drive_distance(23); // rev
+wait(0.5, seconds);
+chassis.drive_distance(-3);
+
+// 3. 2nd, 3rd ring and ladder
+chassis.turn_to_angle(325-180); // turnTo
+chassis.drive_distance(11.5); // fwd
+chassis.drive_distance(-5);
+chassis.turn_to_angle(30-180); // turnTo
+chassis.drive_distance(-45); // rev
+Ladybrown.spinTo(800, degrees);
+chassis.turn_to_angle(315-180); // turnTo
+Intake.stop();
+chassis.drive_distance(4);
+
+
+/*
   // 1. Pick up mobile goal
   LiftClamp();
   chassis.drive_distance(-29.5); // rev
@@ -348,7 +420,7 @@ void autonBlueRight3RingsAndLadder() {
   chassis.turn_to_angle(138); // turnTo
   chassis.drive_distance(27.5); // fwd
   Intake.stop();
-
+*/
 
 
 }
@@ -627,14 +699,22 @@ void TakeTopRingInStack() {
 }
 
 void auton_debug(){
+  odom_constants();
+  chassis.set_coordinates(0, 0, 0);
+  chassis.set_drive_exit_conditions(1.5, 300, 5000);
 
-  //STARt
+  chassis.drive_distance(10);
+  Brain.Screen.printAt(5, 160, "L: %f R: %f", chassis.get_left_position_in(), chassis.get_right_position_in());
+  wait(2, seconds);
 
-  Intake.spin(reverse);
-  wait(.5, seconds);
-  Intake.stop();
-  chassis.turn_to_angle(135);
-  chassis.drive_distance(-24);
+  chassis.drive_distance(20);
+  Brain.Screen.printAt(5, 180, "L: %f R: %f", chassis.get_left_position_in(), chassis.get_right_position_in());
+
+  wait(2, seconds);
+  chassis.drive_distance(-10);
+  Brain.Screen.printAt(5, 200, "L: %f R: %f", chassis.get_left_position_in(), chassis.get_right_position_in());
+
+  //chassis.drive_stop(brakeType::hold);
 
   //LiftClamp();
   //DropClamp();
