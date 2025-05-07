@@ -131,7 +131,7 @@ Drive chassis(
 
 );
 
-int current_auton_selection = 1;
+int current_auton_selection = 4;
 bool auto_started = false;
 
 // from https://www.vexforum.com/t/sd-card-help/50499/2
@@ -198,7 +198,7 @@ void pre_auton(void) {
     switch(current_auton_selection){
       case 0:
         Brain.Screen.setPenColor(red);
-        Brain.Screen.printAt(5, 140, "RED LEFT WORLDS AWP");
+        Brain.Screen.printAt(5, 140, "DO NOT USE");
         break;
       case 1:
         Brain.Screen.setPenColor(red);
@@ -210,7 +210,7 @@ void pre_auton(void) {
         break;
       case 3:
         Brain.Screen.setPenColor(red);
-        Brain.Screen.printAt(5, 140, "LEFT RED - 2 rings on mobile goal, touch ladder");
+        Brain.Screen.printAt(5, 140, "DO NOT USE");
         break;
       case 4:
         Brain.Screen.setPenColor(red);
@@ -218,11 +218,11 @@ void pre_auton(void) {
         break;
       case 5:
         Brain.Screen.setPenColor(blue);
-        Brain.Screen.printAt(5, 140, "RIGHT BLUE - 2 rings on mobile goal, touch ladder");        
+        Brain.Screen.printAt(5, 140, "DO NOT USE");        
         break;
       case 6:
         Brain.Screen.setPenColor(blue);
-        Brain.Screen.printAt(5, 140, "LEFT BLUE) - 2 rings on mobile goal, touch ladder");
+        Brain.Screen.printAt(5, 140, "LEFT BLUE - 2 rings on mobile goal, touch ladder");
         break;
       case 7:
         Brain.Screen.printAt(5, 140, "Auton 8 - auton_debug");
@@ -280,11 +280,11 @@ void autonomous(void) {
       break;
     case 5:
       allianceIsRed = false;
-      autonLeft2RingsAndLadder();
+      autonRight2RingsAndLadder();
       break;
     case 6:
       allianceIsRed = false;
-      autonRight2RingsAndLadder();
+      autonLeft2RingsAndLadder();
       break;
     case 7:
       auton_debug();
@@ -362,7 +362,7 @@ void buttonUpPressed(){
     //Ladybrown.spinFor(forward, 5, degrees, false);
   } else {
     Intake.spinFor(forward, 72, degrees);
-    Ladybrown.spinToPosition(700, degrees, 300, rpm);
+    Ladybrown.spinToPosition(700, degrees, 150, rpm);
   }
 }
 

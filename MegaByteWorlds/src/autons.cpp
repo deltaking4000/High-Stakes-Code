@@ -379,7 +379,9 @@ Intake.spin(reverse);
 chassis.turn_to_angle(234.5); // turnTo
 chassis.drive_distance(23); // rev
 wait(0.5, seconds);
+IntakeMotorA.spin(forward);
 chassis.drive_distance(-3);
+IntakeMotorA.spin(reverse);
 
 // 3. 2nd, 3rd ring and ladder
 chassis.turn_to_angle(325-180); // turnTo
