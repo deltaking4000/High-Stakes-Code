@@ -361,7 +361,8 @@ void buttonUpPressed(){
     // checked in rc_auto_loop_function_Controller1
     //Ladybrown.spinFor(forward, 5, degrees, false);
   } else {
-    Ladybrown.spinToPosition(700, degrees);
+    Intake.spinFor(forward, 72, degrees);
+    Ladybrown.spinToPosition(700, degrees, 300, rpm);
   }
 }
 
