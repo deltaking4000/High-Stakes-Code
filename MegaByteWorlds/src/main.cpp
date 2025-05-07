@@ -365,16 +365,16 @@ void buttonUpPressed(){
   }
 }
 
-void buttonYPressed() {
-  Doinker.set(false);
-  Brain.Screen.print("Doinker false...");
-  Brain.Screen.newLine();
-}
-
 void buttonXPressed() {
-  Doinker.set(true);
-  Brain.Screen.print("Doinker true...");
-  Brain.Screen.newLine();
+  static bool bButtonXState = false;
+  if( !bButtonXState ) {
+    bButtonXState = true;
+    Doinker.set(false);
+  }
+  else {
+    bButtonXState = false;
+    Doinker.set(true);
+  }
 }
 
 void buttonAPressed() {
@@ -395,14 +395,14 @@ void buttonAPressed() {
 }
 
 
-void buttonBPressed() {
-  static bool bButtonBState = false;
-  if( !bButtonBState ) {
-    bButtonBState = true;
+void buttonYPressed() {
+  static bool bButtonYState = false;
+  if( !bButtonYState ) {
+    bButtonYState = true;
     DoinkerJoint.set(true);
   }
   else {
-    bButtonBState = false;
+    bButtonYState = false;
     DoinkerJoint.set(false);
   }
 }
@@ -433,6 +433,8 @@ int main() {
   Controller1.ButtonX.pressed(buttonXPressed);
   Controller1.ButtonY.pressed(buttonYPressed);
   Controller1.ButtonA.pressed(buttonAPressed);
+  //Controller1.ButtonB.pressed(buttonBPressed);
+
   //Controller1.ButtonB.pressed(buttonBPressed); // checked in rc_auto_loop_function_Controller1
 
   // Run detected when the Optical Sensor detects an object.
